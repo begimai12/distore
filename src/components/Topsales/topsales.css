@@ -1,0 +1,85 @@
+/* ═══════════════════════════════
+   TOP SALES
+═══════════════════════════════ */
+.top-sales {
+    width: 100%;
+    padding: 40px var(--page-px);
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.top-sales__title {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: center;
+    margin: 0 0 32px;
+}
+
+/* Сетка — 4 карточки, первый ряд из newproducts */
+.top-sales__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(16px, 3vw, 42px);
+    row-gap: 0;
+    align-items: start;
+}
+
+/* Высоты карточек как в первом ряду newproducts */
+.top-sales__card--1 .product-card__img-wrap,
+.top-sales__card--3 .product-card__img-wrap {
+    height: 356.67px;
+}
+
+.top-sales__card--2 .product-card__img-wrap,
+.top-sales__card--4 .product-card__img-wrap {
+    height: 422.31px;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .top-sales {
+        padding: 24px 16px;
+    }
+
+    .top-sales__title {
+        font-size: 18px;
+    }
+
+    .top-sales__grid {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 12px;
+        row-gap: 0;
+    }
+
+    /* Мобайл: первые 4 карточки как в newproducts */
+    .top-sales__card--1 .product-card__img-wrap {
+        height: 240px;
+    }
+
+    .top-sales__card--2 .product-card__img-wrap {
+        height: 300px;
+    }
+
+    .top-sales__card--3 .product-card__img-wrap {
+        height: 300px;
+    }
+
+    .top-sales__card--4 .product-card__img-wrap {
+        height: 240px;
+    }
+
+    .top-sales__card--1,
+    .top-sales__card--2 {
+        align-self: start;
+    }
+
+    .top-sales__card--3,
+    .top-sales__card--4 {
+        align-self: end;
+        margin-top: -30px;
+    }
+}

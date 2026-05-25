@@ -1,0 +1,276 @@
+/* ═══════════════════════════════
+   CATALOG HERO
+═══════════════════════════════ */
+.catalog-hero {
+    width: 100%;
+    background: #ffffff;
+    padding: 0 76px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* ── Логотип ── */
+.catalog-hero__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px 0 16px;
+}
+
+.catalog-hero__heart {
+    font-size: 18px;
+    color: #1a1a1a;
+}
+
+.catalog-hero__logo-img {
+    height: 28px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* ── Бар: иконка + заголовок + сортировка ── */
+.catalog-hero__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.catalog-hero__filter-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #4f4f4f;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.catalog-hero__filter-icon:hover {
+    color: #ccd47c;
+}
+
+.catalog-hero__title {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+.catalog-hero__sort-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #4f4f4f;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    transition: color 0.2s;
+    position: relative;
+}
+
+.catalog-hero__sort-btn:hover {
+    color: #ccd47c;
+}
+
+/* Дропдаун сортировки */
+.catalog-hero__sort-dropdown {
+    position: absolute;
+    top: 36px;
+    right: 0;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    min-width: 260px;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.sort-option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 15px;
+    color: #4f4f4f;
+    transition: background 0.15s;
+    text-align: left;
+}
+
+.sort-option:hover {
+    background: #f5f5f5;
+}
+
+.sort-option--active {
+    background: #ccd47c;
+    color: #ffffff;
+}
+
+.sort-option--active:hover {
+    background: #bfc96e;
+}
+
+.sort-option__arrow {
+    font-size: 18px;
+    opacity: 0.5;
+}
+
+/* ── Фильтры ── */
+.catalog-hero__filters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-bottom: 16px;
+}
+
+.catalog-hero__filter-wrap {
+    position: relative;
+}
+
+.catalog-hero__filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 1.5px solid #ccd47c;
+    border-radius: 50px;
+    background: #ffffff;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.catalog-hero__filter-btn--open,
+.catalog-hero__filter-btn:hover {
+    background: #ccd47c;
+    color: #ffffff;
+}
+
+.catalog-hero__filter-arrow {
+    font-size: 12px;
+    transition: transform 0.2s;
+}
+
+.catalog-hero__filter-btn--open .catalog-hero__filter-arrow {
+    transform: rotate(180deg);
+}
+
+/* Дропдаун фильтра */
+.catalog-hero__filter-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    min-width: 220px;
+    z-index: 100;
+    padding: 12px 0;
+    overflow: hidden;
+}
+
+/* Фильтр цены */
+.filter-price {
+    padding: 8px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filter-price__row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #4f4f4f;
+}
+
+.filter-price__input {
+    width: 80px;
+    height: 32px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 0 10px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.filter-price__input:focus {
+    border-color: #ccd47c;
+}
+
+/* Список категорий */
+.filter-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #1a1a1a;
+    transition: background 0.15s;
+}
+
+.filter-option:hover {
+    background: #f5f5f5;
+}
+
+.filter-option__checkbox {
+    width: 16px;
+    height: 16px;
+    accent-color: #ccd47c;
+    cursor: pointer;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .catalog-hero {
+        padding: 0 16px;
+    }
+
+    .catalog-hero__title {
+        font-size: 17px;
+    }
+
+    .catalog-hero__logo-img {
+        height: 22px;
+    }
+
+    .catalog-hero__filters {
+        gap: 8px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+        padding-bottom: 8px;
+    }
+
+    .catalog-hero__filters::-webkit-scrollbar {
+        display: none;
+    }
+
+    .catalog-hero__filter-btn {
+        font-size: 13px;
+        padding: 6px 12px;
+    }
+}

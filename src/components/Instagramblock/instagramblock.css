@@ -1,0 +1,54 @@
+/* ═══════════════════════════════
+   INSTAGRAM
+═══════════════════════════════ */
+.instagram {
+    width: 100%;
+    padding: 48px var(--page-px) 150px;
+    box-sizing: border-box;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.instagram__title {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    text-align: center;
+}
+
+.instagram__link {
+    display: block;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.instagram__link:hover {
+    opacity: 0.9;
+}
+
+.instagram__img {
+    width: 68%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    margin: 0 auto;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .instagram {
+        padding: 32px 16px;
+        gap: 24px;
+    }
+
+    .instagram__title {
+        font-size: 17px;
+    }
+}

@@ -1,0 +1,86 @@
+/* ═══════════════════════════════
+   MASKS
+═══════════════════════════════ */
+.masks {
+    width: 100%;
+    padding: 40px var(--page-px);
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+/* ── Заголовок ── */
+.masks__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.masks__title {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.masks__more {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #4f4f4f;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.masks__more:hover {
+    opacity: 0.6;
+}
+
+.masks__arrow {
+    width: 28px;
+    height: 28px;
+    display: block;
+    transform: scaleX(-1);
+}
+
+/* ── Баннер ── */
+.masks__banner {
+    width: 100%;
+    border-radius: 32px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.masks__img {
+    width: 880px;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .masks {
+        padding: 30px 16px;
+    }
+
+    .masks__title {
+        font-size: 18px;
+    }
+
+    .masks__banner {
+        border-radius: 20px;
+    }
+
+    .masks__img {
+        width: 100%;
+        max-width: 360px;
+    }
+}

@@ -1,0 +1,192 @@
+/* ═══════════════════════════════
+   POPULAR
+═══════════════════════════════ */
+.popular {
+    width: 100%;
+    height: 530px;
+    padding-left: var(--page-px);
+    padding-right: 0;
+    padding-top: 64px;
+    box-sizing: border-box;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+/* ── Заголовок ── */
+.popular__header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.popular__title {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.popular__more {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s;
+}
+
+.popular__more:hover {
+    opacity: 0.6;
+}
+
+.popular__arrow {
+    width: 28px;
+    height: 28px;
+    display: block;
+    transform: scaleX(-1);
+    /* смотрит вправо */
+}
+
+/* ── Трек ── */
+.popular__track {
+    display: flex;
+    gap: 38px;
+    overflow: visible;
+}
+
+/* ── Карточка: 430×362, border-radius 47px ── */
+.popular-card {
+    flex: 0 0 430px;
+    width: 430px;
+    height: 362px;
+    border-radius: 47px;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.popular-card__info {
+    position: absolute;
+    bottom: 28px;
+    left: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 1;
+    max-width: 55%;
+}
+
+.popular-card__name {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.popular-card__price {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #888888;
+    margin: 0;
+}
+
+.popular-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ── Мобайл слайдер ── */
+.popular__slider {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.popular__slide {
+    width: 100%;
+}
+
+.popular-card--mobile {
+    width: 100%;
+    height: 400px;
+    border-radius: 0;
+    flex: none;
+    overflow: hidden;
+}
+
+/* Точки */
+.popular__dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.popular__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #d0d0d0;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.popular__dot--active {
+    background: #1a1a1a;
+    transform: scale(1.2);
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .popular {
+        width: 100%;
+        height: auto;
+        padding: 0;
+        border: none;
+    }
+
+    .popular__header {
+        padding: 8px 16px 0;
+    }
+
+    .popular__title {
+        font-size: 17px;
+    }
+
+    .popular__track.desktop-only {
+        display: none !important;
+    }
+
+    .popular__slider {
+        display: flex;
+    }
+
+    .popular-card {
+        flex: 0 0 100%;
+        width: 100%;
+        height: auto;
+        border-radius: 42px;
+    }
+
+    .popular-card__name {
+        font-size: 14px;
+    }
+
+    .popular-card__price {
+        font-size: 12px;
+    }
+}

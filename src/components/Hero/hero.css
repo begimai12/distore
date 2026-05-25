@@ -1,0 +1,298 @@
+/* ═══════════════════════════════
+   HERO
+═══════════════════════════════ */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    background: #ffffff;
+    overflow: visible;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 90px;
+    padding-bottom: 2px;
+}
+
+.hero-circles-overlay {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.hero-circle {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    pointer-events: none;
+    user-select: none;
+    animation: spin 6s linear infinite;
+    z-index: 10;
+}
+
+.hero-circle--1 {
+    top: -140px;
+    right: 4px;
+}
+
+.hero-circle--2 {
+    top: 180px;
+    left: -108px;
+}
+
+.hero-circle--3 {
+    top: 450px;
+    right: -108px;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.hero-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: -62px;
+    margin-bottom: 40px;
+    height: 30px;
+    z-index: 1;
+}
+
+.hero-logo__img {
+    height: 30.5px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.hero-brands__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 18px;
+    height: 44px;
+    margin-bottom: 24px;
+    z-index: 1;
+}
+
+.hero-brands__title {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    white-space: nowrap;
+}
+
+.hero-brands__arrow {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+    z-index: 1;
+}
+
+.hero-brands__arrow:hover {
+    opacity: 0.6;
+}
+
+.hero-brands__arrow img {
+    width: 40px;
+    height: 40px;
+    display: block;
+}
+
+.hero-brands__arrow--next img {
+    transform: scaleX(-1);
+}
+
+.hero-carousel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    box-sizing: border-box;
+    z-index: 1;
+    padding-left: var(--hero-px);
+    padding-right: var(--hero-px);
+}
+
+.hero-carousel__viewport {
+    width: 100%;
+}
+
+.hero-carousel__viewport--right {
+    width: calc(100% + var(--hero-px));
+    overflow: hidden;
+    clip-path: inset(0 0 0 0);
+}
+
+.hero-carousel__viewport--right .hero-carousel__track {
+    padding-left: clamp(40px, 6.5vw, 100px);
+}
+
+.hero-carousel__viewport--left {
+    width: calc(100% + var(--hero-px));
+    margin-left: calc(-1 * var(--hero-px));
+    overflow: hidden;
+}
+
+.hero-carousel__viewport--left .hero-carousel__track {
+    padding-left: clamp(40px, 6.5vw, 100px);
+}
+
+.hero-carousel__track {
+    display: flex;
+    gap: 82px;
+    will-change: transform;
+}
+
+.hero-carousel--mobile {
+    display: none;
+}
+
+.hero-circle-mobile {
+    display: none;
+}
+
+.hero-brand-card {
+    flex: 0 0 176px;
+    width: 176px;
+    height: 234px;
+    border-radius: 34px;
+    overflow: hidden;
+    background: #f5f5f5;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.hero-brand-card:hover {
+    /* hover убран */
+}
+
+.hero-brand-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .hero {
+        height: auto;
+        min-height: auto;
+        justify-content: flex-start;
+        padding-top: 16px;
+        padding-bottom: 0;
+        overflow: hidden;
+    }
+
+    .hero-logo {
+        display: none;
+    }
+
+    .hero-circles-overlay {
+        display: none;
+    }
+
+    .hero-brands__header {
+        height: auto;
+        margin-top: 0;
+        margin-bottom: 22px;
+        gap: 18px;
+        align-items: center;
+    }
+
+    .hero-brands__title {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 0;
+    }
+
+    .hero-brands__arrow img {
+        width: 28px;
+        height: 28px;
+    }
+
+    .hero-carousel {
+        display: none;
+    }
+
+    /* Мобайл-карусель: карточка 248 + смещение 124 = 372px */
+    .hero-carousel--mobile {
+        display: flex;
+        width: 100%;
+        padding: 0;
+        height: 372px;
+        overflow: hidden;
+    }
+
+    .hero-carousel__viewport--mobile {
+        width: 100%;
+        overflow: visible;
+        height: 372px;
+    }
+
+    .hero-carousel__viewport--mobile .hero-carousel__track {
+        padding-left: 24px;
+        align-items: flex-start;
+        gap: 4px;
+        height: auto;
+    }
+
+    /* Карточки: 168×248, шаг = 168+4 = 172px */
+    .hero-brand-card {
+        flex: 0 0 168px;
+        width: 168px;
+        height: 248px;
+        border-radius: 32px;
+        margin-top: 0;
+    }
+
+    /* Чётные — смещены вниз на 50% высоты */
+    .hero-brand-card--low {
+        margin-top: 124px;
+    }
+
+    /* Мобайл-круг */
+    .hero-circle-mobile {
+        display: block;
+        width: 180px;
+        height: 180px;
+        position: relative;
+        align-self: center;
+        margin-top: -56px;
+        animation: spinMobile 6s linear infinite;
+        pointer-events: none;
+        margin-left: 160px; /* подвинь на нужное значение */
+    }
+
+    @keyframes spinMobile {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+}

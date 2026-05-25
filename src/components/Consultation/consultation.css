@@ -1,0 +1,186 @@
+/* ═══════════════════════════════
+   CONSULTATION
+═══════════════════════════════ */
+.consultation {
+    width: 100%;
+    padding: 60px var(--page-px);
+    box-sizing: border-box;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: clamp(24px, 4vw, 60px);
+}
+
+/* ── Форма ── */
+.consultation__form-wrap {
+    flex: 0 0 clamp(300px, 50%, 700px);
+    min-height: 420px;
+    height: auto;
+    background: #ccd47c;
+    border-radius: 32px;
+    padding: 48px 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.consultation__title {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.consultation__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.consultation__input {
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 50px;
+    padding: 0 24px;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 16px;
+    color: #4f4f4f;
+    background: #ffffff;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.consultation__input::placeholder {
+    color: #aaaaaa;
+}
+
+.consultation__btn {
+    width: 100%;
+    height: 56px;
+    border: none;
+    border-radius: 50px;
+    background: #1a1a1a;
+    color: #ffffff;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.consultation__btn:hover {
+    opacity: 0.85;
+}
+
+/* ── Отзывы ── */
+.consultation__reviews {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+}
+
+/* Карточка отзыва */
+.review-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    max-width: 340px;
+}
+
+/* Смещения для стопки */
+.review-card--1 {
+    align-self: flex-end;
+}
+
+.review-card--2 {
+    align-self: flex-start;
+    margin-top: -8px;
+}
+
+.review-card--3 {
+    align-self: flex-end;
+    margin-top: -8px;
+}
+
+.review-card__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.review-card__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ccd47c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.review-card__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.review-card__avatar span {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.review-card__name {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.review-card__text {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #4f4f4f;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .consultation {
+        flex-direction: column;
+        padding: 32px 16px;
+        gap: 32px;
+    }
+
+    .consultation__form-wrap {
+        flex: none;
+        width: 100%;
+        padding: 32px 24px;
+    }
+
+    .consultation__title {
+        font-size: 22px;
+    }
+
+    .consultation__reviews {
+        display: none;
+    }
+
+}

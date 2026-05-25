@@ -1,0 +1,190 @@
+/* ═══════════════════════════════
+   ABOUT DS
+═══════════════════════════════ */
+.about-ds {
+    width: 100%;
+    padding: 48px var(--page-px);
+    box-sizing: border-box;
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ── Логотип ── */
+.about-ds__logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.about-ds__logo-img {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* ── Контент: фото слева, текст справа ── */
+.about-ds__content {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(40px, 8vw, 120px);
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Фото: 647×648, border-radius 22px ── */
+.about-ds__photo {
+    flex: 0 0 clamp(300px, 45vw, 647px);
+    width: clamp(300px, 45vw, 647px);
+    height: clamp(300px, 45vw, 648px);
+    border-radius: 22px;
+    object-fit: cover;
+    display: block;
+}
+
+/* ── Текст ── */
+.about-ds__text {
+    flex: 1;
+    max-width: 456px;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: clamp(18px, 2vw, 30px);
+    font-weight: 400;
+    color: #4f4f4f;
+    line-height: 120%;
+    letter-spacing: normal;
+    margin: 0;
+    padding-top: clamp(20px, 5vw, 74px);
+    text-align: center;
+}
+
+/* ── Декоративные мазки ── */
+.about-ds__decor {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.about-ds__decor--1 {
+    width: 260px;
+    height: auto;
+    top: 2px;
+    right: -60px;
+    transform: rotate(0deg);
+    z-index: 3;
+}
+
+.about-ds__decor--2 {
+    width: 217px;
+    height: 230px;
+    top: 280px;
+    left: -56px;
+    z-index: 3;
+}
+
+.about-ds__decor--3 {
+    width: 280px;
+    height: auto;
+    bottom: -42px;
+    right: -60px;
+    transform: rotate(0deg);
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .about-ds {
+        padding: 0 0 32px;
+    }
+
+    /* Логотип и контент меняем порядок через order */
+    .about-ds__logo {
+        order: 2;
+        margin-top: 24px;
+        margin-bottom: 16px;
+    }
+
+    .about-ds__content {
+        order: 1;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    /* Включаем flex-direction column на секции */
+    .about-ds {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Логотип: width 188 */
+    .about-ds__logo-img {
+        width: 188px;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .about-ds__photo.desktop-only {
+        display: none !important;
+    }
+
+    /* Три блока из одного фото */
+    .about-ds__photos-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+        padding: 0 16px;
+        box-sizing: border-box;
+    }
+
+    /* Мобайл фото: 370×423, border-radius 22px */
+    .about-ds__photo-mobile {
+        width: 370px;
+        height: 423px;
+        border-radius: 22px;
+        object-fit: cover;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .about-ds__text.desktop-only {
+        display: none !important;
+    }
+
+    /* Мобайл текст: 370×140, font 18px */
+    .about-ds__text--mobile {
+        width: 370px;
+        max-width: 100%;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 110%;
+        letter-spacing: normal;
+        text-align: center;
+        color: #4f4f4f;
+        padding: 0 30px;
+        box-sizing: border-box;
+        margin: 0 auto;
+    }
+
+    .about-ds__decor--1 {
+        width: 100px;
+        top: -10px;
+        right: -10px;
+    }
+
+    .about-ds__decor--2 {
+        width: 90px;
+        height: auto;
+        top: auto;
+        bottom: 180px;
+        left: -20px;
+    }
+
+    .about-ds__decor--3 {
+        width: 90px;
+        bottom: -10px;
+        right: -10px;
+    }
+}

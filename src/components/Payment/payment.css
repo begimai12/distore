@@ -1,0 +1,71 @@
+/* ═══════════════════════════════
+   PAYMENT
+═══════════════════════════════ */
+.payment {
+    width: 100%;
+    padding: 48px var(--page-px);
+    box-sizing: border-box;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+.payment__title {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    text-align: center;
+}
+
+.payment__list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 42px;
+    flex-wrap: wrap;
+}
+
+/* Карточка: 155.56×105, border-radius 7px */
+.payment__card {
+    width: 155.56px;
+    height: 105px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.payment__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .payment {
+        padding: 32px 16px;
+        gap: 20px;
+    }
+
+    .payment__title {
+        font-size: 17px;
+    }
+
+    .payment__list {
+        gap: 10px;
+    }
+
+    .payment__card {
+        width: 80px;
+        height: auto;
+    }
+}
