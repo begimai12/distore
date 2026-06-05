@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./consultation.css";
 
 const REVIEWS = [
@@ -21,13 +22,21 @@ const REVIEWS = [
     },
 ];
 
-export default function Consultation() {
+export default function Consultation({ mobileShow = "form" }) {
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+    const [sent, setSent] = useState(false);
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!phone && !email) return;
+        setSent(true);
+        setPhone("");
+        setEmail("");
     };
 
     return (
-        <section className="consultation">
+        <section className="consultation" data-mobile={mobileShow}>
 
             {/* Форма */}
             <div className="consultation__form-wrap">
@@ -35,19 +44,27 @@ export default function Consultation() {
                     Получите профессиональную консультацию специалиста
                 </h2>
 
-                <div className="consultation__form">
-                    <input
-                        type="tel"
-                        placeholder="Телефон"
-                        className="consultation__input"
-                    />
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        className="consultation__input"
-                    />
-                    <button className="consultation__btn">Отправить</button>
-                </div>
+                {sent ? (
+                    <p className="consultation__success">Спасибо! Мы свяжемся с вами в ближайшее время.</p>
+                ) : (
+                    <div className="consultation__form">
+                        <input
+                            type="tel"
+                            placeholder="Телефон"
+                            className="consultation__input"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                        />
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            className="consultation__input"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <button className="consultation__btn" onClick={handleSubmit}>Отправить</button>
+                    </div>
+                )}
             </div>
 
             {/* Отзывы */}

@@ -89,37 +89,40 @@
 /* Карточка отзыва */
 .review-card {
     background: #ffffff;
-    border-radius: 16px;
-    padding: 16px 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    max-width: 340px;
+    border-radius: 20px;
+    padding: 20px 24px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.09);
+    width: 78%;
 }
 
 /* Смещения для стопки */
 .review-card--1 {
     align-self: flex-end;
+    z-index: 1;
 }
 
 .review-card--2 {
     align-self: flex-start;
-    margin-top: -8px;
+    margin-top: -40px;
+    z-index: 3;
 }
 
 .review-card--3 {
     align-self: flex-end;
-    margin-top: -8px;
+    margin-top: -40px;
+    z-index: 2;
 }
 
 .review-card__header {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
+    gap: 14px;
+    margin-bottom: 10px;
 }
 
 .review-card__avatar {
-    width: 36px;
-    height: 36px;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     background: #ccd47c;
     display: flex;
@@ -137,15 +140,15 @@
 
 .review-card__avatar span {
     font-family: 'Google Sans', 'Roboto', sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
     color: #ffffff;
 }
 
 .review-card__name {
     font-family: 'Google Sans', 'Roboto', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
     color: #1a1a1a;
     margin: 0;
 }
@@ -154,9 +157,9 @@
     font-family: 'Google Sans', 'Roboto', sans-serif;
     font-size: 13px;
     font-weight: 400;
-    color: #4f4f4f;
+    color: #6b6b6b;
     margin: 0;
-    line-height: 1.5;
+    line-height: 1.55;
 }
 
 /* ═══════════════════════════════
@@ -179,7 +182,13 @@
         font-size: 22px;
     }
 
-    .consultation__reviews {
+    /* по умолчанию (form) — скрываем отзывы */
+    .consultation[data-mobile="form"] .consultation__reviews {
+        display: none;
+    }
+
+    /* reviews — скрываем форму */
+    .consultation[data-mobile="reviews"] .consultation__form-wrap {
         display: none;
     }
 

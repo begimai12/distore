@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCart } from "../../context/CartContext";
 import "./newproducts.css";
 import defaultImg from "../../assets/default.png";
 
@@ -9,14 +10,14 @@ const ARROW_LEFT = "data:image/svg+xml,%3csvg%20width='40'%20height='40'%20viewB
 const TABS = ["Новинки", "Бестселлеры", "Рекомендуемое"];
 
 const PRODUCTS = [
-    { id: 1, name: "ISNTREE Hyaluronic Acid Moist Cream", price: "750 сом", img: defaultImg },
-    { id: 2, name: "PAULA'S CHOICE barrier repair moisturizer", price: "4700 сом", img: defaultImg },
-    { id: 3, name: "ALFAPARF SDL detoxifying low shampoo", price: "1700 сом", img: defaultImg },
-    { id: 4, name: "CELIMAX CICA CREAM", price: "750 сом", img: defaultImg },
-    { id: 5, name: "ALFAPARF SDL sunshine after sun low shampoo", price: "1200 сом", img: defaultImg },
-    { id: 6, name: "AXIS-Y complete no-stress physical sunscreen", price: "1050 сом", img: defaultImg },
-    { id: 7, name: "LA SULTANE DE SABA rose body lotion", price: "4700 сом", img: defaultImg },
-    { id: 8, name: "HEMPZ body moisturizer coconut Colada&Pineapple", price: "3490 сом", img: defaultImg },
+    { id: 1, name: "ISNTREE Hyaluronic Acid Moist Cream", price: 750, img: defaultImg },
+    { id: 2, name: "PAULA'S CHOICE barrier repair moisturizer", price: 4700, img: defaultImg },
+    { id: 3, name: "ALFAPARF SDL detoxifying low shampoo", price: 1700, img: defaultImg },
+    { id: 4, name: "CELIMAX CICA CREAM", price: 750, img: defaultImg },
+    { id: 5, name: "ALFAPARF SDL sunshine after sun low shampoo", price: 1200, img: defaultImg },
+    { id: 6, name: "AXIS-Y complete no-stress physical sunscreen", price: 1050, img: defaultImg },
+    { id: 7, name: "LA SULTANE DE SABA rose body lotion", price: 4700, img: defaultImg },
+    { id: 8, name: "HEMPZ body moisturizer coconut Colada&Pineapple", price: 3490, img: defaultImg },
 ];
 
 const TOTAL_PAGES = 10;
@@ -24,6 +25,7 @@ const TOTAL_PAGES = 10;
 export default function NewProducts() {
     const [activeTab, setActiveTab] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
+    const { addToCart } = useCart();
 
     const getPageNumbers = () => {
         // Показываем: первые 3, ..., последние 2
@@ -55,18 +57,16 @@ export default function NewProducts() {
                         {/* Изображение */}
                         <div className="product-card__img-wrap">
                             <img src={product.img} alt={product.name} className="product-card__img" />
-                            <button className="product-card__cart" aria-label="В корзину">
+                            <button className="product-card__cart" aria-label="В корзину" onClick={() => addToCart(product)}>
                                 <img src={CART_ICON} alt="корзина" />
                             </button>
-                            {/* Название внутри карточки снизу */}
                             <div className="product-card__info">
                                 <p className="product-card__name">{product.name}</p>
                             </div>
                         </div>
 
-                        {/* Цена — снаружи карточки, по центру, на границе */}
                         <div className="product-card__price-wrap">
-                            <span className="product-card__price">{product.price}</span>
+                            <span className="product-card__price">{product.price.toLocaleString()} сом</span>
                         </div>
                     </div>
                 ))}

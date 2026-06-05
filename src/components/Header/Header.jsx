@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 import "./header.css";
 import favourites from "../../assets/favourites.svg";
 import account from "../../assets/account.svg";
@@ -18,7 +19,7 @@ const LOGO_URL = "https://distore.one/assets/logo-RTk1AIHF.svg";
 const NAV_LINKS = [
     { label: "Главная", href: "/" },
     { label: "Каталог", href: "/catalog" },
-    { label: "О нас", href: "/about" },
+    { label: "О нас", href: "/aboutus" },
     { label: "Контакты", href: "/contacts" },
 ];
 
@@ -46,17 +47,29 @@ const LANGUAGES = [
     { label: "Русский", flag: "🇷🇺" },
 ];
 
-export default function Header() {
+const SEARCH_HISTORY_INIT = [
+    "ISNTREE Hyaluronic Acid Moist Cream",
+    "RARE BEAUTY always an optimist po...",
+    "ISNTREE Hyaluronic Acid Moist Cream",
+];
+
+export default function Header({ variant = "main", title = "" }) {
     const { pathname } = useLocation();
+    const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
     const [activeTab, setActiveTab] = useState("menu");
     const [activeCategory, setActiveCategory] = useState(null);
     const [langOpen, setLangOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 1023);
+    const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+    const [searchHistory, setSearchHistory] = useState(SEARCH_HISTORY_INIT);
+
+    const { count: cartCount } = useCart();
 
     const burgerRef = useRef(null);
     const dropdownRef = useRef(null);
+    const searchInputRef = useRef(null);
 
     useEffect(() => {
         const onResize = () => setIsMobile(window.innerWidth <= 1023);
@@ -101,18 +114,48 @@ export default function Header() {
         setActiveCategory(null);
     };
 
+    const openMobileSearch = () => {
+        setMobileSearchOpen(true);
+        setTimeout(() => searchInputRef.current?.focus(), 50);
+    };
+
+    const closeMobileSearch = () => {
+        setMobileSearchOpen(false);
+        setSearchQuery("");
+    };
+
+    const removeHistoryItem = (index) => {
+        setSearchHistory(prev => prev.filter((_, i) => i !== index));
+    };
+
     return (
         <>
             {/* ════════ HEADER ════════ */}
             <header className="header">
 
-                {/* LEFT: бургер + десктоп-навигация */}
+                {/* LEFT */}
                 <div className="header-left">
-                    <div className="burger-wrapper" ref={burgerRef}>
+                    {/* Десктоп: бургер всегда */}
+                    <div className="burger-wrapper desktop-only" ref={burgerRef}>
                         <button className="icon-btn" aria-label="Меню" onClick={handleBurgerClick}>
                             <img src={BURGER_ICON} className="icon-burger" alt="меню" />
                         </button>
                     </div>
+
+                    {/* Мобайл: бургер / стрелка назад / стрелка закрыть поиск */}
+                    {mobileSearchOpen ? (
+                        <button className="icon-btn mobile-only header__back-btn" aria-label="Назад" onClick={closeMobileSearch}>
+                            <span className="header__back-icon">‹</span>
+                        </button>
+                    ) : variant === "main" ? (
+                        <button className="icon-btn mobile-only" aria-label="Меню" onClick={handleBurgerClick}>
+                            <img src={BURGER_ICON} className="icon-burger" alt="меню" />
+                        </button>
+                    ) : (
+                        <button className="icon-btn mobile-only header__back-btn" aria-label="Назад" onClick={() => navigate(-1)}>
+                            <span className="header__back-icon">‹</span>
+                        </button>
+                    )}
 
                     <nav className="nav desktop-only">
                         {NAV_LINKS.map(({ label, href }) => (
@@ -128,10 +171,25 @@ export default function Header() {
                     </nav>
                 </div>
 
-                {/* MOBILE: логотип по центру */}
-                <div className="mobile-logo mobile-only">
-                    <img src={LOGO_URL} className="mobile-logo__img" alt="DI STORE" />
-                </div>
+                {/* MOBILE CENTER */}
+                {mobileSearchOpen ? (
+                    <div className="header__mobile-search mobile-only">
+                        <input
+                            ref={searchInputRef}
+                            type="text"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder="Поиск"
+                            className="header__mobile-search-input"
+                        />
+                    </div>
+                ) : variant === "page" ? (
+                    <span className="header__page-title mobile-only">{title}</span>
+                ) : (
+                    <div className="mobile-logo mobile-only">
+                        <img src={LOGO_URL} className="mobile-logo__img" alt="DI STORE" />
+                    </div>
+                )}
 
                 {/* RIGHT */}
                 <div className="header-right">
@@ -146,23 +204,42 @@ export default function Header() {
                         <img src={SEARCH_ICON} className="icon-search" alt="поиск" />
                     </div>
 
-                    <button className="icon-btn mobile-only" aria-label="Поиск">
+                    <button className="icon-btn mobile-only" aria-label="Поиск" onClick={mobileSearchOpen ? undefined : openMobileSearch}>
                         <img src={SEARCH_ICON} className="icon-search-mobile" alt="поиск" />
                     </button>
 
-                    <button className="icon-btn desktop-only" aria-label="Избранное">
+                    <button className="icon-btn desktop-only" aria-label="Избранное" onClick={() => navigate('/favourites')}>
                         <img src={favourites} className="icon-wishlist" alt="избранное" />
                     </button>
 
-                    <button className="icon-btn" aria-label="Корзина">
-                        <img src={CART_ICON} className="icon-cart" alt="корзина" />
-                    </button>
+                    {!mobileSearchOpen && (
+                        <button className="icon-btn" aria-label="Корзина" onClick={() => navigate('/shoppingcart')} style={{ position: "relative" }}>
+                            <img src={CART_ICON} className="icon-cart" alt="корзина" />
+                            {cartCount > 0 && (
+                                <span style={{ position: "absolute", top: -4, right: -4, background: "#CCD47C", color: "#1a1a1a", borderRadius: "50%", fontSize: 10, fontWeight: 700, width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1 }}>
+                                    {cartCount > 99 ? "99+" : cartCount}
+                                </span>
+                            )}
+                        </button>
+                    )}
 
-                    <button className="icon-btn desktop-only" aria-label="Личный кабинет">
+                    <button className="icon-btn desktop-only" aria-label="Личный кабинет" onClick={() => navigate('/account')}>
                         <img src={account} className="icon-profile" alt="личный кабинет" />
                     </button>
                 </div>
             </header>
+
+            {/* ════════ MOBILE SEARCH DROPDOWN ════════ */}
+            {mobileSearchOpen && isMobile && (
+                <div className="search-dropdown">
+                    {searchHistory.map((item, i) => (
+                        <div key={i} className="search-history-item">
+                            <span className="search-history-text">{item}</span>
+                            <button className="search-history-remove" onClick={() => removeHistoryItem(i)}>✕</button>
+                        </div>
+                    ))}
+                </div>
+            )}
 
             {/* ════════ DESKTOP DROPDOWN ════════ */}
             {menuOpen && !isMobile && (
@@ -173,7 +250,14 @@ export default function Header() {
                         <div
                             key={cat.label}
                             className="dropdown-item"
-                            onClick={() => cat.sub.length > 0 ? setActiveCategory(cat) : setMenuOpen(false)}
+                            onClick={() => {
+                                if (cat.sub.length > 0) {
+                                    setActiveCategory(cat);
+                                } else {
+                                    setMenuOpen(false);
+                                    navigate(`/catalog?category=${encodeURIComponent(cat.label)}`);
+                                }
+                            }}
                         >
                             <span>{cat.label}</span>
                             {cat.sub.length > 0 && <span className="dropdown-arrow">›</span>}
@@ -188,7 +272,7 @@ export default function Header() {
                                 {activeCategory.label}
                             </div>
                             {activeCategory.sub.map((sub) => (
-                                <div key={sub} className="dropdown-sub__item" onClick={() => setMenuOpen(false)}>
+                                <div key={sub} className="dropdown-sub__item" onClick={() => { setMenuOpen(false); navigate(`/catalog?category=${encodeURIComponent(activeCategory.label)}`); }}>
                                     {sub}
                                 </div>
                             ))}
@@ -208,11 +292,16 @@ export default function Header() {
                             <img src={LOGO_URL} className="mobile-logo__img" alt="DI STORE" />
                         </div>
                         <div className="mobile-menu__icons">
-                            <button className="icon-btn" aria-label="Поиск">
+                            <button className="icon-btn" aria-label="Поиск" onClick={() => { closeMenu(); openMobileSearch(); }}>
                                 <img src={SEARCH_ICON} className="icon-search-mobile" alt="поиск" />
                             </button>
-                            <button className="icon-btn" aria-label="Корзина">
+                            <button className="icon-btn" aria-label="Корзина" onClick={() => { closeMenu(); navigate('/shoppingcart'); }} style={{ position: "relative" }}>
                                 <img src={CART_ICON} className="icon-cart-mobile" alt="корзина" />
+                                {cartCount > 0 && (
+                                    <span style={{ position: "absolute", top: -4, right: -4, background: "#CCD47C", color: "#1a1a1a", borderRadius: "50%", fontSize: 10, fontWeight: 700, width: 16, height: 16, display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1 }}>
+                                        {cartCount > 99 ? "99+" : cartCount}
+                                    </span>
+                                )}
                             </button>
                         </div>
                     </div>
@@ -259,7 +348,14 @@ export default function Header() {
                                     <div
                                         key={cat.label}
                                         className="mobile-categories__item"
-                                        onClick={() => cat.sub.length > 0 && setActiveCategory(cat)}
+                                        onClick={() => {
+                                            if (cat.sub.length > 0) {
+                                                setActiveCategory(cat);
+                                            } else {
+                                                closeMenu();
+                                                navigate(`/catalog?category=${encodeURIComponent(cat.label)}`);
+                                            }
+                                        }}
                                     >
                                         <span>{cat.label}</span>
                                         <span className="mobile-categories__arrow">›</span>
@@ -279,7 +375,7 @@ export default function Header() {
                                     <span className="mobile-subcategories__title">{activeCategory.label}</span>
                                 </button>
                                 {activeCategory.sub.map((sub) => (
-                                    <div key={sub} className="mobile-categories__item mobile-categories__item--sub">
+                                    <div key={sub} className="mobile-categories__item mobile-categories__item--sub" onClick={() => { closeMenu(); navigate(`/catalog?category=${encodeURIComponent(activeCategory.label)}`); }}>
                                         {sub}
                                     </div>
                                 ))}

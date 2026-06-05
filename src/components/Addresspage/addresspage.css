@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap');
+
+/* ═══════════════════════════════
+   ADDRESS PAGE
+═══════════════════════════════ */
+.addr-root {
+    width: 100%;
+    min-height: 100vh;
+    background: #fff;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    padding: 32px 77px 60px;
+    box-sizing: border-box;
+}
+
+/* ── Заголовок ── */
+.addr-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.addr-header__back {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.addr-header__text {
+    flex: 1;
+    text-align: center;
+}
+
+.addr-header__title {
+    font-size: calc(25 / 1280 * 100vw);
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 6px;
+    line-height: 100%;
+}
+
+.addr-header__sub {
+    font-size: calc(14 / 1280 * 100vw);
+    color: #888;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ═══════════════════════════════
+   ДЕСКТОП: две колонки
+═══════════════════════════════ */
+.addr-mobile {
+    display: none;
+}
+
+.addr-desktop {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+}
+
+.addr-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Зелёная шапка секции */
+.addr-section-header {
+    background: #ccd47c;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 16px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* ── Поле ── */
+.addr-field {
+    margin-bottom: 16px;
+}
+
+.addr-field__label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+}
+
+.addr-field__req {
+    color: #e53935;
+}
+
+.addr-field__input {
+    width: 100%;
+    height: 44px;
+    border: none;
+    border-bottom: 1.5px solid #d6d6d6;
+    background: transparent;
+    font-size: 15px;
+    font-family: inherit;
+    color: #1a1a1a;
+    padding: 0 4px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.addr-field__input:focus {
+    border-bottom-color: #ccd47c;
+}
+
+.addr-field__input::placeholder {
+    color: #bbb;
+}
+
+/* ── Кнопки ── */
+.addr-col__actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.addr-btn {
+    height: 48px;
+    padding: 0 48px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    border: none;
+}
+
+.addr-btn:hover {
+    opacity: 0.85;
+}
+
+.addr-btn--reset {
+    background: transparent;
+    border: 2px solid #d6d6d6;
+    color: #ccd47c;
+}
+
+.addr-btn--save {
+    background: #ccd47c;
+    color: #fff;
+}
+
+/* ═══════════════════════════════
+   МОБАЙЛ ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .addr-root {
+        padding: 20px 16px 40px;
+    }
+
+    .addr-desktop {
+        display: none;
+    }
+
+    .addr-mobile {
+        display: block;
+    }
+
+    .addr-header {
+        margin-bottom: 20px;
+    }
+
+    .addr-header__title {
+        font-size: 22px;
+    }
+
+    .addr-header__sub {
+        font-size: 13px;
+    }
+
+    /* Аккордеон */
+    .addr-accordion {
+        margin-bottom: 0;
+    }
+
+    .addr-accordion__header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #ccd47c;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: inherit;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        margin-bottom: 0;
+        box-sizing: border-box;
+    }
+
+    .addr-accordion__header--open {
+        border-radius: 10px 10px 0 0;
+    }
+
+    .addr-accordion__chevron {
+        display: flex;
+        align-items: center;
+        transition: transform 0.2s;
+        color: #fff;
+    }
+
+    .addr-accordion__chevron--open {
+        transform: rotate(180deg);
+    }
+
+    .addr-accordion__body {
+        background: #fff;
+        border: 1.5px solid #e0e0e0;
+        border-top: none;
+        border-radius: 0 0 10px 10px;
+        padding: 16px 16px 8px;
+        margin-bottom: 16px;
+    }
+
+    /* Поля на мобайле */
+    .addr-field__input {
+        border: 1.5px solid #d6d6d6;
+        border-radius: 8px;
+        padding: 0 12px;
+        background: #fff;
+    }
+
+    .addr-field__input:focus {
+        border-color: #ccd47c;
+        border-bottom-color: #ccd47c;
+    }
+
+    /* Кнопки мобайл */
+    .addr-mobile__actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 8px;
+    }
+
+    .addr-mobile__actions .addr-btn {
+        flex: 1;
+        padding: 0;
+    }
+}

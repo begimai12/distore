@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap');
+
+/* ═══════════════════════════════
+   CATEGORIES CAROUSEL
+═══════════════════════════════ */
+.cat-root {
+    width: 100%;
+    padding: 40px 0 48px;
+    background: #fff;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+}
+
+/* ── Заголовок ── */
+.cat-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.cat-title {
+    font-size: calc(22 / 1280 * 100vw);
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.cat-nav {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.15s;
+}
+
+.cat-nav:hover {
+    opacity: 0.5;
+}
+
+/* ── Swiper ── */
+.cat-swiper {
+    width: 100%;
+    padding-bottom: 40px !important;
+    /* место для pagination dots */
+}
+
+/* Swiper pagination dots */
+.cat-swiper .swiper-pagination-bullet {
+    background: #d6d6d6;
+    opacity: 1;
+    width: 8px;
+    height: 8px;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.cat-swiper .swiper-pagination-bullet-active {
+    background: #ccd47c;
+    transform: scale(1.3);
+}
+
+/* ── Слайд ── */
+.cat-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.35s ease;
+}
+
+/* ── Карточка (овал) ── */
+.cat-card {
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    transition: width 0.35s ease, height 0.35s ease;
+}
+
+.cat-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Активная */
+.cat-card--active {
+    width: calc(360 / 1280 * 100vw);
+    height: calc(420 / 1280 * 100vw);
+}
+
+/* Боковые */
+.cat-card--side {
+    width: calc(240 / 1280 * 100vw);
+    height: calc(280 / 1280 * 100vw);
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+/* Оверлей «Подробнее» */
+.cat-card__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 38%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 28px;
+    border-radius: 0 0 50% 50%;
+}
+
+.cat-card__btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid #fff;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    padding: 10px 32px;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s;
+}
+
+.cat-card__btn:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Подпись ── */
+.cat-caption {
+    text-align: center;
+    font-size: calc(15 / 1280 * 100vw);
+    color: #1a1a1a;
+    margin: 4px 0 0;
+    padding: 0 16px;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .cat-root {
+        padding: 24px 0 36px;
+    }
+
+    .cat-title {
+        font-size: 18px;
+    }
+
+    .cat-card--active {
+        width: 220px;
+        height: 260px;
+    }
+
+    .cat-card--side {
+        width: 140px;
+        height: 165px;
+    }
+
+    .cat-caption {
+        font-size: 14px;
+    }
+
+    .cat-card__btn {
+        font-size: 13px;
+        padding: 8px 20px;
+    }
+}

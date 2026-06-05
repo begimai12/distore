@@ -1,4 +1,5 @@
 import AboutDs from "../../components/Aboutds/Aboutds"
+import CategoriesCarousel from "../../components/Categoriescarousel/Categoriescarousel"
 import Consultation from "../../components/Consultation/Consultation"
 import Footer from "../../components/Footer/Footer"
 import Header from "../../components/Header/Header"
@@ -21,6 +22,7 @@ function App() {
             <Popular />
             <Masks />
             <NewProducts />
+            <CategoriesCarousel />
             <AboutDs />
             <TopSales />
             <Consultation />

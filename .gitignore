@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Temp / debug
+*.png
+pp_debug.js
+vite_err.txt
+vite_out.txt
+snap*.mjs
+*.mjs.tmp

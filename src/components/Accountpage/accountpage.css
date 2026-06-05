@@ -1,0 +1,304 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap');
+
+/* ═══════════════════════════════
+   ACCOUNT PAGE
+═══════════════════════════════ */
+.acc-root {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background: #fff;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+}
+
+/* ── Левое фото ── */
+.acc-photo {
+    flex: 0 0 48%;
+    max-width: 48%;
+    overflow: hidden;
+}
+
+.acc-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ── Правая панель ── */
+.acc-panel {
+    flex: 1;
+    padding: 40px 60px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+/* ── Заголовок ── */
+.acc-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+}
+
+.acc-header__back {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.acc-header__title {
+    flex: 1;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+/* ── Аватар ── */
+.acc-avatar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 24px;
+}
+
+.acc-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.acc-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.acc-avatar__change {
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+}
+
+/* ── Поля ── */
+.acc-field {
+    margin-bottom: 16px;
+    width: 100%;
+    max-width: 440px;
+}
+
+.acc-field__label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+}
+
+.acc-field__wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 440px;
+}
+
+.acc-field__input {
+    width: 100%;
+    max-width: 440px;
+    height: 44px;
+    border: 1.5px solid #d6d6d6;
+    border-radius: 8px;
+    padding: 0 40px 0 14px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #1a1a1a;
+    background: #fff;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.acc-field__input:focus {
+    border-color: #ccd47c;
+}
+
+.acc-field__input::placeholder {
+    color: #bbb;
+}
+
+.acc-field__eye {
+    position: absolute;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+/* Телефон */
+.acc-field__wrap--phone {
+    gap: 0;
+}
+
+.acc-field__flag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 44px;
+    padding: 0 10px 0 14px;
+    border: 1.5px solid #d6d6d6;
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    background: #fff;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 18px;
+}
+
+.acc-field__input--phone {
+    border-radius: 0 8px 8px 0;
+    padding-left: 12px;
+}
+
+/* ── Забыли пароль ── */
+.acc-forgot-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    margin-top: -8px;
+    width: 100%;
+    max-width: 440px;
+}
+
+.acc-forgot {
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #7b9e3a;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 0;
+}
+
+.acc-forgot:hover {
+    text-decoration: underline;
+}
+
+/* ── Кнопка сохранить ── */
+.acc-btn {
+    width: 100%;
+    max-width: 440px;
+    height: 52px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s;
+}
+
+.acc-btn--save {
+    background: #ccd47c;
+    color: #fff;
+}
+
+.acc-btn--save:hover {
+    opacity: 0.85;
+}
+
+/* ═══════════════════════════════
+   МОДАЛЬНОЕ ОКНО СМЕНЫ ПАРОЛЯ
+═══════════════════════════════ */
+.acc-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.acc-modal {
+    background: #fff;
+    border-radius: 20px;
+    padding: 36px 40px 32px;
+    width: 420px;
+    max-width: 90vw;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+.acc-modal__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: center;
+    margin: 0 0 24px;
+}
+
+.acc-modal__btn {
+    margin-top: 8px;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .acc-root {
+        flex-direction: column;
+    }
+
+    /* Фото скрыто */
+    .acc-photo {
+        display: none;
+    }
+
+    .acc-panel {
+        padding: 32px 16px 40px;
+    }
+
+    .acc-field__input,
+    .acc-field__wrap,
+    .acc-btn {
+        max-width: 100%;
+    }
+
+    .acc-header__title {
+        font-size: 20px;
+    }
+
+    .acc-avatar {
+        width: 90px;
+        height: 90px;
+    }
+
+    .acc-modal {
+        padding: 28px 24px 28px;
+    }
+}

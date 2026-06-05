@@ -25,7 +25,10 @@
     padding-left: var(--page-px);
     padding-right: var(--page-px);
     box-sizing: border-box;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 200;
 }
 
@@ -266,6 +269,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
 }
 
 .mobile-logo__img {
@@ -273,6 +277,101 @@
     width: auto;
     display: block;
     object-fit: contain;
+}
+
+.header__heart {
+    color: var(--accent);
+    font-size: 14px;
+    line-height: 1;
+}
+
+/* ── Mobile back button ── */
+.header__back-btn {
+    padding: 0;
+}
+
+.header__back-icon {
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+    display: block;
+}
+
+/* ── Mobile page title ── */
+.header__page-title {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+/* ── Mobile search input ── */
+.header__mobile-search {
+    flex: 1;
+    margin: 0 8px;
+    height: 36px;
+    background: var(--accent-bg);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    box-sizing: border-box;
+}
+
+.header__mobile-search-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 14px;
+    color: var(--text-nav);
+    width: 100%;
+}
+
+.header__mobile-search-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* ── Search history dropdown ── */
+.search-dropdown {
+    position: fixed;
+    top: 90px;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    z-index: 150;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    border-bottom: 1px solid var(--border);
+}
+
+.search-history-text {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #1a1a1a;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 12px;
+}
+
+.search-history-remove {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-muted);
+    padding: 0;
+    flex-shrink: 0;
 }
 
 /* ── Visibility helpers ── */
@@ -527,11 +626,15 @@
         align-items: center;
         justify-content: space-between;
         box-sizing: border-box;
-        position: sticky;
+        position: fixed;
         top: 0;
-        z-index: 100;
+        left: 0;
+        right: 0;
+        z-index: 200;
     }
+
 }
+
 
 .header-left {
     align-items: center;
@@ -569,8 +672,3 @@
     align-items: center;
 }
 
-/* Отступ снизу под таббар */
-body {
-    padding-bottom: 70px;
-}
-}

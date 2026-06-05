@@ -1,34 +1,29 @@
-import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./tabbar.css";
 import favourites from "../../assets/favourites.svg";
 import account from "../../assets/account.svg";
 import home from "../../assets/home.svg";
 
-export default function TabBar() {
-    const [active, setActive] = useState("home");
+const TABS = [
+    { id: "home", src: home, alt: "Главная", path: "/" },
+    { id: "favourites", src: favourites, alt: "Избранное", path: "/favourites" },
+    { id: "account", src: account, alt: "Профиль", path: "/account" },
+];
 
-    const tabs = [
-        { id: "home", src: home, alt: "Главная", },
-        { id: "favourites", src: favourites, alt: "Избранное", },
-        { id: "account", src: account, alt: "Профиль", },
-    ];
+export default function TabBar() {
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
 
     return (
         <nav className="tab-bar">
-            {tabs.map(({ id, src, alt }) => (
+            {TABS.map(({ id, src, alt, path }) => (
                 <button
                     key={id}
-                    className={`tab-bar__item${active === id ? " tab-bar__item--active" : ""}`}
+                    className={`tab-bar__item${pathname === path ? " tab-bar__item--active" : ""}`}
                     aria-label={alt}
-                    onClick={() => setActive(id)}
+                    onClick={() => navigate(path)}
                 >
-                    {active === id ? (
-                        <div className="tab-bar__circle">
-                            <img src={src} className="tab-bar__icon tab-bar__icon--active" alt={alt} />
-                        </div>
-                    ) : (
-                        <img src={src} className="tab-bar__icon" alt={alt} />
-                    )}
+                    <img src={src} className="tab-bar__icon" alt={alt} />
                 </button>
             ))}
         </nav>

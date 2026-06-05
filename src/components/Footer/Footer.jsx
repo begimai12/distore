@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./footer.css";
 
 const USEFUL_LINKS = [
@@ -14,28 +15,24 @@ const ADDRESS_ITEMS = [
     "Ибраимова 115/1",
     "Арстанбека Дуйшеева, 12",
     "Ежедневно с 10:00 до 21:00",
-    "Distore.biz@gmail.com",
 ];
 
-const ALL_COLUMNS = [
-    {
-        title: "Аккаунт",
-        links: ["Аккаунт", "Мой заказ", "Адрес", "Корзина", "Список желаний"],
-        desktopOnly: true,
-    },
-    {
-        title: "Меню",
-        links: ["Декоративная косметика", "Уход для лица", "Уход за волосами", "Уход за телом", "Наборы", "Парфюм", "Разное"],
-        desktopOnly: true,
-    },
-    {
-        title: "Полезное",
-        links: USEFUL_LINKS,
-    },
-    {
-        title: "Адрес",
-        items: ADDRESS_ITEMS,
-    },
+const ACCOUNT_LINKS = [
+    { label: "Аккаунт", to: "/account" },
+    { label: "Мой заказ", to: "/order" },
+    { label: "Адрес", to: "/address" },
+    { label: "Корзина", to: "/shoppingcart" },
+    { label: "Список желаний", to: "/favourites" },
+];
+
+const MENU_LINKS = [
+    "Декоративная косметика",
+    "Уход для лица",
+    "Уход за волосами",
+    "Уход за телом",
+    "Наборы",
+    "Парфюм",
+    "Разное",
 ];
 
 const SOCIALS = [
@@ -56,39 +53,60 @@ const SOCIALS = [
     },
 ];
 
-const SOCIALS_DESKTOP = [...SOCIALS];
-
-export default function Footer() {
+export default function Footer({ hideOnMobile = false }) {
     return (
-        <footer className="footer">
+        <footer className={`footer${hideOnMobile ? " footer--no-mobile" : ""}`}>
             {/* Десктоп: все 4 колонки */}
             <div className="footer__columns desktop-only">
-                {ALL_COLUMNS.map((col) => (
-                    <div key={col.title} className="footer__col">
-                        <h3 className="footer__col-title">{col.title}</h3>
-                        {col.links && col.links.map((link) => (
-                            <a key={link} href="#" className="footer__link">{link}</a>
-                        ))}
-                        {col.items && col.items.map((item) => (
-                            <p key={item} className="footer__text">{item}</p>
-                        ))}
-                    </div>
-                ))}
+                {/* Аккаунт */}
+                <div className="footer__col">
+                    <h3 className="footer__col-title">Аккаунт</h3>
+                    {ACCOUNT_LINKS.map(({ label, to }) => (
+                        <Link key={label} to={to} className="footer__link">{label}</Link>
+                    ))}
+                </div>
+
+                {/* Меню */}
+                <div className="footer__col">
+                    <h3 className="footer__col-title">Меню</h3>
+                    {MENU_LINKS.map((cat) => (
+                        <Link key={cat} to={`/catalog?category=${encodeURIComponent(cat)}`} className="footer__link">{cat}</Link>
+                    ))}
+                </div>
+
+                {/* Полезное */}
+                <div className="footer__col">
+                    <h3 className="footer__col-title">Полезное</h3>
+                    {USEFUL_LINKS.map((link) => (
+                        <a key={link} href="#" className="footer__link">{link}</a>
+                    ))}
+                </div>
+
+                {/* Адрес */}
+                <div className="footer__col">
+                    <h3 className="footer__col-title">Адрес</h3>
+                    {ADDRESS_ITEMS.map((item) => (
+                        <p key={item} className="footer__text">{item}</p>
+                    ))}
+                    <a href="mailto:Distore.biz@gmail.com" className="footer__link">Distore.biz@gmail.com</a>
+                </div>
             </div>
 
             {/* Мобайл: только Полезное и Адрес */}
             <div className="footer__columns-mobile mobile-only">
-                {ALL_COLUMNS.filter(c => !c.desktopOnly).map((col) => (
-                    <div key={col.title} className="footer__col">
-                        <h3 className="footer__col-title">{col.title}</h3>
-                        {col.links && col.links.map((link) => (
-                            <a key={link} href="#" className="footer__link">{link}</a>
-                        ))}
-                        {col.items && col.items.map((item) => (
-                            <p key={item} className="footer__text">{item}</p>
-                        ))}
-                    </div>
-                ))}
+                <div className="footer__col">
+                    <h3 className="footer__col-title">Полезное</h3>
+                    {USEFUL_LINKS.map((link) => (
+                        <a key={link} href="#" className="footer__link">{link}</a>
+                    ))}
+                </div>
+                <div className="footer__col">
+                    <h3 className="footer__col-title">Адрес</h3>
+                    {ADDRESS_ITEMS.map((item) => (
+                        <p key={item} className="footer__text">{item}</p>
+                    ))}
+                    <a href="mailto:Distore.biz@gmail.com" className="footer__link">Distore.biz@gmail.com</a>
+                </div>
             </div>
 
             {/* Логотип */}
@@ -98,7 +116,7 @@ export default function Footer() {
 
             {/* Соцсети */}
             <div className="footer__socials footer__socials--desktop desktop-only">
-                {SOCIALS_DESKTOP.map((s) => (
+                {SOCIALS.map((s) => (
                     <a key={s.label} href={s.href} aria-label={s.label} className="footer__social">{s.icon}</a>
                 ))}
             </div>

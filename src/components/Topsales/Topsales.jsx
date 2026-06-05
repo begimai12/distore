@@ -1,3 +1,4 @@
+import { useCart } from "../../context/CartContext";
 import "./topsales.css";
 import "../NewProducts/newproducts.css";
 import defaultImg from "../../assets/default.png";
@@ -6,13 +7,14 @@ const CART_ICON = "data:image/svg+xml,%3csvg%20width='25'%20height='25'%20viewBo
 
 // Пока статичные — потом API
 const PRODUCTS = [
-    { id: 1, name: "Beauty of Joseon SPF 50", price: "1100 сом", img: defaultImg },
-    { id: 2, name: "DR.ALTHEA double serum balm foundation", price: "1500 сом", img: defaultImg },
-    { id: 3, name: "COLOURPOP Pressed Powder Palette", price: "2100 сом", img: defaultImg },
-    { id: 4, name: "RARE BEAUTY soft pinch tinted lip oil", price: "2400 сом", img: defaultImg },
+    { id: 101, name: "Beauty of Joseon SPF 50", price: 1100, img: defaultImg },
+    { id: 102, name: "DR.ALTHEA double serum balm foundation", price: 1500, img: defaultImg },
+    { id: 103, name: "COLOURPOP Pressed Powder Palette", price: 2100, img: defaultImg },
+    { id: 104, name: "RARE BEAUTY soft pinch tinted lip oil", price: 2400, img: defaultImg },
 ];
 
 export default function TopSales() {
+    const { addToCart } = useCart();
     return (
         <section className="top-sales">
             <h2 className="top-sales__title">Лидеры продаж за месяц</h2>
@@ -22,7 +24,7 @@ export default function TopSales() {
                     <div key={product.id} className={`product-card top-sales__card top-sales__card--${i + 1}`}>
                         <div className="product-card__img-wrap">
                             <img src={product.img} alt={product.name} className="product-card__img" />
-                            <button className="product-card__cart" aria-label="В корзину">
+                            <button className="product-card__cart" aria-label="В корзину" onClick={() => addToCart(product)}>
                                 <img src={CART_ICON} alt="корзина" />
                             </button>
                             <div className="product-card__info">
@@ -30,7 +32,7 @@ export default function TopSales() {
                             </div>
                         </div>
                         <div className="product-card__price-wrap">
-                            <span className="product-card__price">{product.price}</span>
+                            <span className="product-card__price">{product.price.toLocaleString()} сом</span>
                         </div>
                     </div>
                 ))}

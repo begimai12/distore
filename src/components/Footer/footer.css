@@ -116,6 +116,10 @@
    RESPONSIVE ≤1023px
 ═══════════════════════════════ */
 @media (max-width: 1023px) {
+    .footer--no-mobile {
+        display: none;
+    }
+
     .desktop-only {
         display: none !important;
     }

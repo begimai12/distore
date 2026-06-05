@@ -1,0 +1,232 @@
+/* ═══════════════════════════════
+   LOCATION
+═══════════════════════════════ */
+.loc-root {
+    width: 100%;
+    padding: 60px 76px 60px;
+    box-sizing: border-box;
+    background: #ffffff;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+}
+
+/* ── Инфо-блоки ── */
+.loc-info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 2px solid #CCD47C;
+    border-radius: 27px;
+    padding: 28px 32px;
+    margin-bottom: 60px;
+}
+
+.loc-info__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    padding: 0 16px;
+
+}
+
+.loc-info__item:last-child {
+    border-right: none;
+}
+
+.loc-info__icon {
+    width: 90px;
+    height: 90px;
+    color: #1a1a1a;
+}
+
+.loc-info__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.loc-info__desc {
+    font-size: 13px;
+    color: #888;
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ── Карта + форма ── */
+.loc-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: stretch;
+}
+
+.loc-map {
+    border-radius: 27px;
+    overflow: hidden;
+    height: 400px;
+}
+
+.loc-map iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+/* ── Форма ── */
+.loc-form-wrap {
+    background: #ccd47c;
+    border-radius: 27px;
+    padding: 36px 32px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.loc-form__title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.loc-form__subtitle {
+    font-size: 14px;
+    color: #1a1a1a;
+    opacity: 0.75;
+    margin: 0 0 12px;
+}
+
+.loc-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.loc-form__input {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 50px;
+    padding: 0 20px;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 15px;
+    color: #4f4f4f;
+    background: #ffffff;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.loc-form__input::placeholder {
+    color: #aaa;
+}
+
+.loc-form__btn {
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 50px;
+    background: #1a1a1a;
+    color: #ffffff;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: opacity 0.2s;
+}
+
+.loc-form__btn:hover {
+    opacity: 0.85;
+}
+
+/* Мобайл карта — скрыта на десктопе */
+.loc-map {
+    display: none;
+}
+
+/* Десктоп карта — показывается внутри loc-bottom */
+.loc-map--desktop {
+    display: block;
+}
+
+/* Мобайл форма — скрыта на десктопе */
+.loc-form-wrap--mobile {
+    display: none;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .loc-root {
+        padding: 32px 16px 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Карта мобайл — показываем */
+    .loc-map {
+        display: block;
+        height: 220px;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .loc-map iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
+    }
+
+    /* Инфо: 2 колонки */
+    .loc-info {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 20px 16px;
+        gap: 20px;
+        margin-bottom: 0;
+    }
+
+    .loc-info__item {
+        border-right: none;
+        padding: 0;
+    }
+
+    .loc-info__icon {
+        width: 70px;
+        height: 70px;
+    }
+
+    .loc-info__title {
+        font-size: 15px;
+    }
+
+    .loc-info__desc {
+        font-size: 12px;
+    }
+
+    /* Десктоп блок — скрываем */
+    .loc-bottom {
+        display: none;
+    }
+
+    /* Мобайл форма — показываем */
+    .loc-form-wrap--mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background: #ccd47c;
+        border-radius: 20px;
+        padding: 24px 20px;
+        box-sizing: border-box;
+    }
+
+    .loc-form__title {
+        font-size: 18px;
+    }
+}

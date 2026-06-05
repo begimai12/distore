@@ -1,0 +1,319 @@
+/* ═══════════════════════════════
+   CATALOG IMGS
+═══════════════════════════════ */
+.catalog-imgs {
+    width: 100%;
+    padding: 24px 76px 180px;
+    box-sizing: border-box;
+    background: #ffffff;
+}
+
+.catalog-imgs__groups {
+    margin-bottom: 52px;
+}
+
+.catalog-imgs__groups .catalog-imgs__grid+.catalog-imgs__grid {
+    margin-top: 80px;
+}
+
+/* ── Сетка ── */
+.catalog-imgs__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(16px, 3vw, 42px);
+    row-gap: 0;
+}
+
+/* Отступ только между группами из 8 — на первой карточке каждой группы */
+.ci-card:nth-child(n+9) {
+    margin-top: 80px;
+}
+
+.ci-card:nth-child(n+9):not(:nth-child(8n+1)):not(:nth-child(8n+2)):not(:nth-child(8n+3)):not(:nth-child(8n+4)) {
+    margin-top: 0;
+}
+
+/* ── Чередование высот: повторяется каждые 8 карточек ── */
+
+/* Нечётные колонки (1,3) — короткие в нечётных рядах */
+.ci-card:nth-child(8n+1) .ci-card__img-wrap,
+.ci-card:nth-child(8n+3) .ci-card__img-wrap {
+    height: 356px;
+}
+
+/* Чётные колонки (2,4) — высокие в нечётных рядах */
+.ci-card:nth-child(8n+2) .ci-card__img-wrap,
+.ci-card:nth-child(8n+4) .ci-card__img-wrap {
+    height: 422px;
+}
+
+/* Нечётные колонки (1,3) — высокие в чётных рядах */
+.ci-card:nth-child(8n+5) .ci-card__img-wrap,
+.ci-card:nth-child(8n+7) .ci-card__img-wrap {
+    height: 422px;
+}
+
+/* Чётные колонки (2,4) — короткие в чётных рядах */
+.ci-card:nth-child(8n+6) .ci-card__img-wrap,
+.ci-card:nth-child(8n+8) .ci-card__img-wrap {
+    height: 356px;
+}
+
+/* Выравнивание рядов */
+.ci-card:nth-child(8n+1),
+.ci-card:nth-child(8n+2),
+.ci-card:nth-child(8n+3),
+.ci-card:nth-child(8n+4) {
+    align-self: start;
+}
+
+.ci-card:nth-child(8n+5),
+.ci-card:nth-child(8n+6),
+.ci-card:nth-child(8n+7),
+.ci-card:nth-child(8n+8) {
+    align-self: end;
+}
+
+/* ── Карточка ── */
+.ci-card {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    width: 100%;
+    position: relative;
+    margin-bottom: -16px;
+}
+
+.ci-card__img-wrap {
+    position: relative;
+    border-radius: 45px;
+    overflow: hidden;
+    width: 100%;
+    background: #f5f5f5;
+}
+
+.ci-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.ci-card__cart {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.85);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+}
+
+.ci-card__cart img {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.ci-card__info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 80px 16px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+    border-radius: 0 0 45px 45px;
+}
+
+.ci-card__name {
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.3;
+    text-align: center;
+    padding: 0 12px;
+    width: 100%;
+    box-sizing: border-box;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.ci-card__price-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: -16px;
+    position: relative;
+    z-index: 2;
+}
+
+.ci-card__price {
+    display: inline-block;
+    background: #ccd47c;
+    color: #ffffff;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    padding: 8px 26px;
+    border-radius: 50px;
+    white-space: nowrap;
+}
+
+/* ── Пагинация ── */
+.ci-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.ci-pagination__btn {
+    min-width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    background: #ffffff;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 15px;
+    color: #4f4f4f;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    padding: 0 10px;
+}
+
+.ci-pagination__btn--active {
+    background: #ccd47c;
+    border-color: #ccd47c;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.ci-pagination__btn--arrow {
+    background: #f0f0f0;
+    border-color: #e0e0e0;
+    min-width: 44px;
+}
+
+.ci-pagination__btn--arrow:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.ci-pagination__btn:hover:not(.ci-pagination__btn--active):not(:disabled) {
+    border-color: #ccd47c;
+    color: #ccd47c;
+}
+
+.ci-pagination__arrow {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.ci-pagination__arrow--right {
+    transform: scaleX(-1);
+}
+
+.ci-pagination__dots {
+    font-size: 14px;
+    color: #aaaaaa;
+    padding: 0 4px;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .catalog-imgs {
+        padding: 16px 16px 32px;
+    }
+
+    .catalog-imgs__groups .catalog-imgs__grid+.catalog-imgs__grid {
+        margin-top: 32px;
+    }
+
+    .catalog-imgs__grid {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 12px;
+        row-gap: 0;
+    }
+
+    /* Чередование высот как в NewProducts */
+    .ci-card:nth-child(4n+1) .ci-card__img-wrap {
+        height: 240px;
+    }
+
+    .ci-card:nth-child(4n+2) .ci-card__img-wrap {
+        height: 300px;
+    }
+
+    .ci-card:nth-child(4n+3) .ci-card__img-wrap {
+        height: 300px;
+    }
+
+    .ci-card:nth-child(4n+4) .ci-card__img-wrap {
+        height: 240px;
+    }
+
+    /* Выравнивание */
+    .ci-card:nth-child(4n+1),
+    .ci-card:nth-child(4n+2) {
+        align-self: start;
+    }
+
+    .ci-card:nth-child(4n+3),
+    .ci-card:nth-child(4n+4) {
+        align-self: end;
+    }
+
+    /* Отступы */
+    .ci-card:nth-child(4n+3),
+    .ci-card:nth-child(4n+4) {
+        margin-top: -30px;
+    }
+
+    .ci-card:nth-child(4n+1):not(:first-child),
+    .ci-card:nth-child(4n+2):not(:nth-child(2)) {
+        margin-top: 32px;
+    }
+
+    .ci-card__name {
+        font-size: 12px;
+    }
+
+    .ci-card__price {
+        font-size: 12px;
+        padding: 6px 16px;
+    }
+
+    .ci-pagination__btn {
+        min-width: 32px;
+        height: 32px;
+        font-size: 12px;
+        padding: 0 6px;
+    }
+
+    .ci-pagination__arrow {
+        width: 14px;
+        height: 14px;
+    }
+
+    .ci-pagination {
+        gap: 4px;
+    }
+}

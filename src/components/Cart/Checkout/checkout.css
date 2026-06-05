@@ -1,0 +1,495 @@
+/* ═══════════════════════════════
+   CHECKOUT
+═══════════════════════════════ */
+.co-root {
+    width: 100%;
+    background: #ffffff;
+    padding: 0 76px 60px;
+    box-sizing: border-box;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+}
+
+/* ── Шапка ── */
+.co-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 0 40px;
+}
+
+.co-back {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    width: 40px;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+}
+
+.co-back:hover {
+    opacity: 0.6;
+}
+
+.co-back img {
+    width: 32px;
+    height: 32px;
+    display: block;
+}
+
+.co-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+.co-header__placeholder {
+    width: 40px;
+    flex-shrink: 0;
+}
+
+/* ── Тело — 3 колонки ── */
+.co-body {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+/* ── Секция ── */
+.co-section__heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.co-section__num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #ccd47c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ccd47c;
+    flex-shrink: 0;
+}
+
+.co-section__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+/* ── Поля ── */
+.co-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.co-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.co-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a1a1a;
+}
+
+.co-required {
+    color: #e74c3c;
+}
+
+.co-input {
+    width: 100%;
+    border: none;
+    border-bottom: 1.5px solid #d0d0d0;
+    padding: 8px 0;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #1a1a1a;
+    background: transparent;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.co-input:focus {
+    border-color: #ccd47c;
+}
+
+.co-input::placeholder {
+    color: #aaa;
+}
+
+/* ── Футер ── */
+.co-footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+    padding-top: 24px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.co-footer__left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.co-footer__note {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.co-link {
+    color: #ccd47c;
+    text-decoration: underline;
+}
+
+.co-agree {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #1a1a1a;
+    cursor: pointer;
+}
+
+.co-agree__checkbox {
+    width: 16px;
+    height: 16px;
+    accent-color: #ccd47c;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.co-submit {
+    background: #ccd47c;
+    border: none;
+    border-radius: 50px;
+    color: #ffffff;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 14px 48px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.co-submit:hover {
+    opacity: 0.85;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .co-root {
+        padding: 0 16px 60px;
+    }
+
+    .co-header {
+        padding: 20px 0 20px;
+    }
+
+    .co-title {
+        font-size: 18px;
+    }
+
+    .co-back img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .co-body {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .co-section__title {
+        font-size: 16px;
+    }
+
+    .co-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .co-submit {
+        width: 100%;
+        text-align: center;
+        opacity: 0.7;
+    }
+}
+
+/* ═══════════════════════════════
+   MODAL
+═══════════════════════════════ */
+.co-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.co-modal {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Товар в модале */
+.co-modal__item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.co-modal__item-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f5f0ee;
+    flex-shrink: 0;
+}
+
+.co-modal__item-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.co-modal__item-info {
+    flex: 1;
+}
+
+.co-modal__item-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.co-modal__item-volume {
+    font-size: 12px;
+    color: #888;
+    margin: 3px 0 0;
+}
+
+.co-modal__item-right {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.co-modal__item-price {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.co-modal__item-qty {
+    font-size: 12px;
+    color: #888;
+    margin: 3px 0 0;
+}
+
+/* Разделитель */
+.co-modal__divider {
+    height: 1px;
+    background: #f0f0f0;
+    margin: 12px 0;
+}
+
+/* Строки */
+.co-modal__row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.co-modal__row-label {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1a1a1a;
+}
+
+.co-modal__row-value {
+    font-size: 15px;
+    color: #1a1a1a;
+}
+
+/* Доставка */
+.co-modal__row--delivery {
+    align-items: flex-start;
+}
+
+.co-modal__delivery-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.co-modal__delivery-opt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #1a1a1a;
+    cursor: pointer;
+}
+
+/* Итого */
+.co-modal__row--total {
+    padding: 12px 0 16px;
+}
+
+.co-modal__total-label {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.co-modal__total-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ccd47c;
+}
+
+/* Кнопка */
+.co-modal__btn {
+    width: 100%;
+    background: #ccd47c;
+    border: none;
+    border-radius: 50px;
+    color: #ffffff;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 14px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    margin-top: 4px;
+}
+
+.co-modal__btn:hover {
+    opacity: 0.85;
+}
+
+@media (max-width: 1023px) {
+    .co-modal-overlay {
+        align-items: center;
+        padding: 20px;
+    }
+
+    .co-modal {
+        border-radius: 20px;
+        padding: 24px 20px;
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+/* ── UDS модал ── */
+.co-modal--uds {
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.co-modal__uds-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 4px;
+    text-align: center;
+}
+
+.co-modal__uds-input {
+    width: 100%;
+    border: 1.5px solid #d0d0d0;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #1a1a1a;
+    background: #ffffff;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.co-modal__uds-input:focus {
+    border-color: #ccd47c;
+}
+
+.co-modal__uds-input::placeholder {
+    color: #aaa;
+}
+
+.co-modal__uds-btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.co-modal__uds-btn {
+    flex: 1;
+    border-radius: 50px;
+    border: none;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 11px 0;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.co-modal__uds-btn:hover {
+    opacity: 0.85;
+}
+
+.co-modal__uds-btn--skip {
+    background: #ffffff;
+    border: 1.5px solid #d0d0d0;
+    color: #888;
+}
+
+.co-modal__uds-btn--submit {
+    background: #ccd47c;
+    color: #ffffff;
+}

@@ -1,0 +1,208 @@
+/* ═══════════════════════════════
+   WISHLIST
+═══════════════════════════════ */
+.wl-root {
+    width: 100%;
+    background: #ffffff;
+    padding: 0 76px 60px;
+    box-sizing: border-box;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+}
+
+/* ── Шапка ── */
+.wl-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 0 40px;
+}
+
+.wl-back {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    width: 40px;
+    flex-shrink: 0;
+    transition: opacity 0.2s;
+}
+
+.wl-back:hover {
+    opacity: 0.6;
+}
+
+.wl-back img {
+    width: 32px;
+    height: 32px;
+    display: block;
+}
+
+.wl-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+.wl-header__placeholder {
+    width: 40px;
+    flex-shrink: 0;
+}
+
+/* ── Сетка ── */
+.wl-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* ── Карточка ── */
+.wl-card {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background: #f9f9f4;
+    border-radius: 16px;
+    overflow: hidden;
+    gap: 0;
+}
+
+.wl-card__img {
+    width: 110px;
+    min-width: 110px;
+    background: #eef5e8;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.wl-card__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.wl-card__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 12px 12px 12px 14px;
+    gap: 6px;
+}
+
+.wl-card__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.wl-card__name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+    line-height: 1.35;
+}
+
+.wl-card__volume {
+    font-size: 12px;
+    color: #888;
+    margin: 2px 0 0;
+}
+
+.wl-card__heart {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.2s;
+}
+
+.wl-card__heart:hover {
+    opacity: 0.7;
+}
+
+.wl-card__price {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 4px 0 0;
+}
+
+.wl-card__cart {
+    width: 100%;
+    background: #ccd47c;
+    border: none;
+    border-radius: 50px;
+    color: #ffffff;
+    font-family: 'Google Sans', 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 0;
+    cursor: pointer;
+    margin-top: auto;
+    transition: opacity 0.2s;
+}
+
+.wl-card__cart:hover {
+    opacity: 0.85;
+}
+
+/* ── Пусто ── */
+.wl-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    color: #888;
+    font-size: 16px;
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE ≤1023px
+═══════════════════════════════ */
+@media (max-width: 1023px) {
+    .wl-root {
+        padding: 0 16px 40px;
+    }
+
+    .wl-header {
+        padding: 20px 0 24px;
+    }
+
+    .wl-title {
+        font-size: 18px;
+    }
+
+    .wl-back img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .wl-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .wl-card__img {
+        width: 90px;
+        min-width: 90px;
+    }
+
+    .wl-card__name {
+        font-size: 13px;
+    }
+
+    .wl-card__price {
+        font-size: 15px;
+    }
+}
