@@ -22,14 +22,39 @@ const REVIEWS = [
     },
 ];
 
+const validatePhone = (v) => {
+    if (!v.trim()) return "Введите номер телефона";
+    if (!/^[+]?[\d\s\-\(\)]{7,15}$/.test(v.trim())) return "Некорректный номер телефона";
+    return "";
+};
+
+const validateEmail = (v) => {
+    if (!v.trim()) return "Введите email";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())) return "Некорректный email";
+    return "";
+};
+
 export default function Consultation({ mobileShow = "form" }) {
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
+    const [errors, setErrors] = useState({ phone: "", email: "" });
+    const [touched, setTouched] = useState({ phone: false, email: false });
     const [sent, setSent] = useState(false);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!phone && !email) return;
+    const handleBlur = (field) => {
+        setTouched(prev => ({ ...prev, [field]: true }));
+        setErrors(prev => ({
+            ...prev,
+            [field]: field === "phone" ? validatePhone(phone) : validateEmail(email),
+        }));
+    };
+
+    const handleSubmit = () => {
+        const phoneErr = validatePhone(phone);
+        const emailErr = validateEmail(email);
+        setErrors({ phone: phoneErr, email: emailErr });
+        setTouched({ phone: true, email: true });
+        if (phoneErr || emailErr) return;
         setSent(true);
         setPhone("");
         setEmail("");
@@ -48,20 +73,38 @@ export default function Consultation({ mobileShow = "form" }) {
                     <p className="consultation__success">Спасибо! Мы свяжемся с вами в ближайшее время.</p>
                 ) : (
                     <div className="consultation__form">
-                        <input
-                            type="tel"
-                            placeholder="Телефон"
-                            className="consultation__input"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                        />
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            className="consultation__input"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
+                        <div className="consultation__field">
+                            <input
+                                type="tel"
+                                placeholder="Телефон"
+                                className={`consultation__input${touched.phone && errors.phone ? " consultation__input--error" : ""}`}
+                                value={phone}
+                                onChange={(e) => {
+                                    setPhone(e.target.value);
+                                    if (touched.phone) setErrors(prev => ({ ...prev, phone: validatePhone(e.target.value) }));
+                                }}
+                                onBlur={() => handleBlur("phone")}
+                            />
+                            {touched.phone && errors.phone && (
+                                <span className="consultation__error">{errors.phone}</span>
+                            )}
+                        </div>
+                        <div className="consultation__field">
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                className={`consultation__input${touched.email && errors.email ? " consultation__input--error" : ""}`}
+                                value={email}
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                    if (touched.email) setErrors(prev => ({ ...prev, email: validateEmail(e.target.value) }));
+                                }}
+                                onBlur={() => handleBlur("email")}
+                            />
+                            {touched.email && errors.email && (
+                                <span className="consultation__error">{errors.email}</span>
+                            )}
+                        </div>
                         <button className="consultation__btn" onClick={handleSubmit}>Отправить</button>
                     </div>
                 )}
