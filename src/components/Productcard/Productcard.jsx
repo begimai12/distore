@@ -21,11 +21,18 @@ const PRODUCT = {
     images: [defaultImg, defaultImg, defaultImg],
 };
 
-export default function ProductCard({ product = PRODUCT }) {
-    const [selectedVolume, setSelectedVolume] = useState(product.volumes[0]);
+export default function ProductCard({ product: raw = PRODUCT }) {
+    const product = {
+        ...raw,
+        images: raw.images || (raw.img ? [raw.img, raw.img, raw.img] : [defaultImg, defaultImg, defaultImg]),
+        volumes: raw.volumes || [],
+        shades: raw.shades || [],
+        description: raw.description || "",
+    };
+    const [selectedVolume, setSelectedVolume] = useState(product.volumes[0] || "");
     const { addToCart } = useCart();
     const { toggleWishlist, isInWishlist } = useWishlist();
-    const [selectedShade, setSelectedShade] = useState(product.shades[0]);
+    const [selectedShade, setSelectedShade] = useState(product.shades[0] || "");
     const [activeImg, setActiveImg] = useState(0);
     const liked = isInWishlist(product.id);
     const [descOpen, setDescOpen] = useState(true);
@@ -93,22 +100,26 @@ export default function ProductCard({ product = PRODUCT }) {
                 {/* Инфо */}
                 <div className="pc-info">
                     <h1 className="pc-info__name">{product.name}</h1>
-                    <div className="pc-info__row">
-                        <span className="pc-info__label">Объем:</span>
-                        <div className="pc-info__tags">
-                            {product.volumes.map(v => (
-                                <button key={v} className={`pc-tag${selectedVolume === v ? " pc-tag--active" : ""}`} onClick={() => setSelectedVolume(v)}>{v}</button>
-                            ))}
+                    {product.volumes.length > 0 && (
+                        <div className="pc-info__row">
+                            <span className="pc-info__label">Объем:</span>
+                            <div className="pc-info__tags">
+                                {product.volumes.map(v => (
+                                    <button key={v} className={`pc-tag${selectedVolume === v ? " pc-tag--active" : ""}`} onClick={() => setSelectedVolume(v)}>{v}</button>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                    <div className="pc-info__row">
-                        <span className="pc-info__label">Оттенок:</span>
-                        <div className="pc-info__tags">
-                            {product.shades.map(s => (
-                                <button key={s} className={`pc-tag${selectedShade === s ? " pc-tag--active" : ""}`} onClick={() => setSelectedShade(s)}>{s}</button>
-                            ))}
+                    )}
+                    {product.shades.length > 0 && (
+                        <div className="pc-info__row">
+                            <span className="pc-info__label">Оттенок:</span>
+                            <div className="pc-info__tags">
+                                {product.shades.map(s => (
+                                    <button key={s} className={`pc-tag${selectedShade === s ? " pc-tag--active" : ""}`} onClick={() => setSelectedShade(s)}>{s}</button>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    )}
                     <div className="pc-accordion">
                         <button className="pc-accordion__btn" onClick={() => setDescOpen(v => !v)}>
                             <span>Описание</span>

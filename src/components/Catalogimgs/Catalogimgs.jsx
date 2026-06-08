@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
 import "./catalogimgs.css";
 import defaultImg from "../../assets/default.png";
 
@@ -34,48 +37,35 @@ const ITEMS_PER_PAGE = 24;
 
 function applyFilters(products, filters) {
     let result = [...products];
-
     if (filters.categories.length > 0) {
         result = result.filter(p => filters.categories.includes(p.category));
     }
-
     result = result.filter(p => p.price >= filters.priceFrom && p.price <= filters.priceTo);
-
     switch (filters.sort) {
-        case "Цена: по возрастанию":
-            result.sort((a, b) => a.price - b.price);
-            break;
-        case "Цена: по убыванию":
-            result.sort((a, b) => b.price - a.price);
-            break;
-        case "По новизне":
-            result.sort((a, b) => b.id - a.id);
-            break;
-        default:
-            break;
+        case "Цена: по возрастанию": result.sort((a, b) => a.price - b.price); break;
+        case "Цена: по убыванию": result.sort((a, b) => b.price - a.price); break;
+        case "По новизне": result.sort((a, b) => b.id - a.id); break;
+        default: break;
     }
-
     return result;
 }
 
 export default function CatalogImgs({ filters = { categories: [], priceFrom: 0, priceTo: 10000, sort: "Исходная сортировка" } }) {
     const [currentPage, setCurrentPage] = useState(1);
+    const navigate = useNavigate();
+    const { addToCart } = useCart();
+    const { toggleWishlist, isInWishlist } = useWishlist();
 
     useEffect(() => { setCurrentPage(1); }, [filters]);
 
     const filtered = applyFilters(ALL_PRODUCTS, filters);
     const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
     const safePage = Math.min(currentPage, totalPages);
-
-    const paginated = filtered.slice(
-        (safePage - 1) * ITEMS_PER_PAGE,
-        safePage * ITEMS_PER_PAGE
-    );
+    const paginated = filtered.slice((safePage - 1) * ITEMS_PER_PAGE, safePage * ITEMS_PER_PAGE);
 
     const renderPages = () => {
         const pages = [];
         const showFirst = safePage <= 5;
-
         if (totalPages <= 7) {
             for (let p = 1; p <= totalPages; p++) {
                 pages.push(
@@ -106,24 +96,40 @@ export default function CatalogImgs({ filters = { categories: [], priceFrom: 0, 
 
     return (
         <section className="catalog-imgs">
-
-            {/* Сетка товаров — группы по 8 */}
             <div className="catalog-imgs__groups">
                 {[0, 1, 2].map(groupIndex => (
                     <div key={groupIndex} className="catalog-imgs__grid">
                         {paginated.slice(groupIndex * 8, groupIndex * 8 + 8).map((product) => (
-                            <div key={product.id} className="ci-card">
+                            <div
+                                key={product.id}
+                                className="ci-card"
+                                onClick={() => navigate('/productpage', { state: { product } })}
+                                style={{ cursor: "pointer" }}
+                            >
                                 <div className="ci-card__img-wrap">
                                     <img src={product.img} alt={product.name} className="ci-card__img" />
-                                    <button className="ci-card__cart" aria-label="В корзину">
+                                    <button
+                                        className="ci-card__cart"
+                                        aria-label="В корзину"
+                                        onClick={e => { e.stopPropagation(); addToCart(product); }}
+                                    >
                                         <img src={CART_ICON} alt="корзина" />
+                                    </button>
+                                    <button
+                                        className="ci-card__heart"
+                                        aria-label="В избранное"
+                                        onClick={e => { e.stopPropagation(); toggleWishlist(product); }}
+                                    >
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill={isInWishlist(product.id) ? "#e74c3c" : "none"} stroke="#e74c3c" strokeWidth="2">
+                                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                        </svg>
                                     </button>
                                     <div className="ci-card__info">
                                         <p className="ci-card__name">{product.name}</p>
                                     </div>
                                 </div>
                                 <div className="ci-card__price-wrap">
-                                    <span className="ci-card__price">{product.price} сом</span>
+                                    <span className="ci-card__price">{product.price.toLocaleString()} сом</span>
                                 </div>
                             </div>
                         ))}
@@ -131,7 +137,6 @@ export default function CatalogImgs({ filters = { categories: [], priceFrom: 0, 
                 ))}
             </div>
 
-            {/* Пагинация */}
             <div className="ci-pagination">
                 <button
                     className="ci-pagination__btn ci-pagination__btn--arrow"
@@ -141,9 +146,7 @@ export default function CatalogImgs({ filters = { categories: [], priceFrom: 0, 
                 >
                     <img src={ARROW_LEFT} alt="назад" className="ci-pagination__arrow" />
                 </button>
-
                 {renderPages()}
-
                 <button
                     className="ci-pagination__btn ci-pagination__btn--arrow"
                     onClick={() => setCurrentPage(v => Math.min(v + 1, totalPages))}
