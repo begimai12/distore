@@ -11,15 +11,40 @@ const ARROW_LEFT = "data:image/svg+xml,%3csvg%20width='40'%20height='40'%20viewB
 
 const TABS = ["Новинки", "Бестселлеры", "Рекомендуемое"];
 
-const PRODUCTS = [
-    { id: 1, name: "ISNTREE Hyaluronic Acid Moist Cream", price: 750, img: defaultImg },
-    { id: 2, name: "PAULA'S CHOICE barrier repair moisturizer", price: 4700, img: defaultImg },
-    { id: 3, name: "ALFAPARF SDL detoxifying low shampoo", price: 1700, img: defaultImg },
-    { id: 4, name: "CELIMAX CICA CREAM", price: 750, img: defaultImg },
-    { id: 5, name: "ALFAPARF SDL sunshine after sun low shampoo", price: 1200, img: defaultImg },
-    { id: 6, name: "AXIS-Y complete no-stress physical sunscreen", price: 1050, img: defaultImg },
-    { id: 7, name: "LA SULTANE DE SABA rose body lotion", price: 4700, img: defaultImg },
-    { id: 8, name: "HEMPZ body moisturizer coconut Colada&Pineapple", price: 3490, img: defaultImg },
+const TAB_PRODUCTS = [
+    // Новинки
+    [
+        { id: 1, name: "ISNTREE Hyaluronic Acid Moist Cream", price: 750, img: defaultImg },
+        { id: 2, name: "PAULA'S CHOICE barrier repair moisturizer", price: 4700, img: defaultImg },
+        { id: 3, name: "ALFAPARF SDL detoxifying low shampoo", price: 1700, img: defaultImg },
+        { id: 4, name: "CELIMAX CICA CREAM", price: 750, img: defaultImg },
+        { id: 5, name: "ALFAPARF SDL sunshine after sun low shampoo", price: 1200, img: defaultImg },
+        { id: 6, name: "AXIS-Y complete no-stress physical sunscreen", price: 1050, img: defaultImg },
+        { id: 7, name: "LA SULTANE DE SABA rose body lotion", price: 4700, img: defaultImg },
+        { id: 8, name: "HEMPZ body moisturizer coconut Colada&Pineapple", price: 3490, img: defaultImg },
+    ],
+    // Бестселлеры
+    [
+        { id: 11, name: "Beauty of Joseon Relief Sun SPF 50+", price: 1100, img: defaultImg },
+        { id: 12, name: "DR.ALTHEA double serum balm foundation", price: 1500, img: defaultImg },
+        { id: 13, name: "COLOURPOP Pressed Powder Palette", price: 2100, img: defaultImg },
+        { id: 14, name: "RARE BEAUTY soft pinch tinted lip oil", price: 2400, img: defaultImg },
+        { id: 15, name: "CHARLOTTE TILBURY pillow talk lipstick", price: 3200, img: defaultImg },
+        { id: 16, name: "DIOR backstage face & body foundation", price: 5500, img: defaultImg },
+        { id: 17, name: "MOROCCANOIL treatment oil", price: 2800, img: defaultImg },
+        { id: 18, name: "ELEMIS pro-collagen marine cream", price: 6100, img: defaultImg },
+    ],
+    // Рекомендуемое
+    [
+        { id: 21, name: "BYREDO parfums bal d'afrique", price: 8900, img: defaultImg },
+        { id: 22, name: "MAISON MARGIELA replica beach walk", price: 7200, img: defaultImg },
+        { id: 23, name: "GIFT SET skincare trio", price: 4200, img: defaultImg },
+        { id: 24, name: "LANEIGE lip sleeping mask", price: 1350, img: defaultImg },
+        { id: 25, name: "TATCHA the water cream moisturizer", price: 5800, img: defaultImg },
+        { id: 26, name: "DRUNK ELEPHANT C-firma day serum", price: 6700, img: defaultImg },
+        { id: 27, name: "GLOW RECIPE watermelon glow toner", price: 2950, img: defaultImg },
+        { id: 28, name: "KIEHL'S ultra facial cream SPF 30", price: 3100, img: defaultImg },
+    ],
 ];
 
 const TOTAL_PAGES = 10;
@@ -56,7 +81,7 @@ export default function NewProducts() {
 
             {/* Сетка товаров */}
             <div className="new-products__grid">
-                {PRODUCTS.map((product) => (
+                {TAB_PRODUCTS[activeTab].map((product) => (
                     <div key={product.id} className="product-card" onClick={() => navigate('/productpage', { state: { product } })} style={{ cursor: "pointer" }}>
                         {/* Изображение */}
                         <div className="product-card__img-wrap">
