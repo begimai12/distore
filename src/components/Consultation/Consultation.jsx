@@ -24,7 +24,9 @@ const REVIEWS = [
 
 const validatePhone = (v) => {
     if (!v.trim()) return "Введите номер телефона";
-    if (!/^[+]?[\d\s\-\(\)]{7,15}$/.test(v.trim())) return "Некорректный номер телефона";
+    if (!/^[+\d\s\-\(\)]+$/.test(v.trim())) return "Некорректный номер телефона";
+    const digits = v.replace(/\D/g, "");
+    if (digits.length < 7 || digits.length > 15) return "Некорректный номер телефона";
     return "";
 };
 
