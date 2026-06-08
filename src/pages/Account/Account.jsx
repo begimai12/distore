@@ -5,7 +5,7 @@ import Tabbar from "../../components/Tabbar/Tabbar";
 
 
 
-function App() {
+function Account() {
     return (
         <>
             <Header />
@@ -16,4 +16,4 @@ function App() {
     )
 }
 
-export default App
+export default Account

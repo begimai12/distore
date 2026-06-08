@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
@@ -23,9 +24,10 @@ const PRODUCT = {
 export default function ProductCard({ product = PRODUCT }) {
     const [selectedVolume, setSelectedVolume] = useState(product.volumes[0]);
     const { addToCart } = useCart();
+    const { toggleWishlist, isInWishlist } = useWishlist();
     const [selectedShade, setSelectedShade] = useState(product.shades[0]);
     const [activeImg, setActiveImg] = useState(0);
-    const [liked, setLiked] = useState(false);
+    const liked = isInWishlist(product.id);
     const [descOpen, setDescOpen] = useState(true);
     const [detailsOpen, setDetailsOpen] = useState(false);
 
@@ -51,7 +53,7 @@ export default function ProductCard({ product = PRODUCT }) {
                 <div className="pc-gallery">
                     <div className="pc-gallery__main">
                         <img src={product.images[activeImg]} alt={product.name} className="pc-gallery__img" />
-                        <button className="pc-gallery__heart" onClick={() => setLiked(v => !v)}>
+                        <button className="pc-gallery__heart" onClick={() => toggleWishlist({ id: product.id, name: product.name, price: product.price, img: product.images[0] })}>
                             <HeartIcon />
                         </button>
                     </div>
@@ -79,7 +81,7 @@ export default function ProductCard({ product = PRODUCT }) {
                             <SwiperSlide key={i}>
                                 <div className="pc-swiper__slide">
                                     <img src={img} alt={product.name} />
-                                    <button className="pc-gallery__heart" onClick={() => setLiked(v => !v)}>
+                                    <button className="pc-gallery__heart" onClick={() => toggleWishlist({ id: product.id, name: product.name, price: product.price, img: product.images[0] })}>
                                         <HeartIcon />
                                     </button>
                                 </div>

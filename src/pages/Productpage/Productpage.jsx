@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header"
 import ProductCard from "../../components/Productcard/Productcard"
 
 
-function App() {
+function Productpage() {
 
     return (
         <>
@@ -15,4 +15,4 @@ function App() {
     )
 }
 
-export default App
+export default Productpage

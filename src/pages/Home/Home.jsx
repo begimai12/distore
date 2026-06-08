@@ -13,7 +13,7 @@ import TabBar from "../../components/Tabbar/Tabbar"
 import TopSales from "../../components/Topsales/Topsales"
 
 
-function App() {
+function Home() {
 
     return (
         <>
@@ -35,4 +35,4 @@ function App() {
     )
 }
 
-export default App
+export default Home

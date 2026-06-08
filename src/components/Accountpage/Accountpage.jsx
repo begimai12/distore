@@ -68,7 +68,6 @@ function PhoneField({ value, onChange }) {
     );
 }
 
-// Модальное окно смены пароля
 function ChangePasswordModal({ onClose }) {
     const [current, setCurrent] = useState("");
     const [next, setNext] = useState("");
@@ -87,31 +86,42 @@ function ChangePasswordModal({ onClose }) {
     );
 }
 
+const loadUser = () => {
+    try { return JSON.parse(localStorage.getItem("distore_user")) || {}; }
+    catch { return {}; }
+};
+
 export default function AccountPage({ onBack }) {
-    const [name, setName] = useState("");
-    const [nickname, setNick] = useState("Derrimet");
-    const [email, setEmail] = useState("Loisbecket@gmail.com");
-    const [phone, setPhone] = useState("(454) 726-0592");
-    const [password, setPw] = useState("•••••••");
-    const [showPw, setShowPw] = useState(false);
+    const [saved, setSaved] = useState(false);
     const [showModal, setModal] = useState(false);
+    const [showPw, setShowPw] = useState(false);
+
+    const u = loadUser();
+    const [name, setName] = useState(u.name || "");
+    const [nickname, setNick] = useState(u.nickname || "");
+    const [email, setEmail] = useState(u.email || "");
+    const [phone, setPhone] = useState(u.phone || "");
+    const [password, setPw] = useState("•••••••");
+
+    const handleSave = () => {
+        const existing = loadUser();
+        localStorage.setItem("distore_user", JSON.stringify({ ...existing, name, nickname, email, phone }));
+        setSaved(true);
+        setTimeout(() => setSaved(false), 2000);
+    };
 
     return (
         <div className="acc-root">
-            {/* Левое фото (только десктоп) */}
             <div className="acc-photo">
                 <img src={acc} alt="Di Store" />
             </div>
 
-            {/* Правая панель */}
             <div className="acc-panel">
-                {/* Заголовок */}
                 <div className="acc-header">
                     <button className="acc-header__back" onClick={onBack}><BackIcon /></button>
                     <h2 className="acc-header__title">Мой аккаунт</h2>
                 </div>
 
-                {/* Аватар */}
                 <div className="acc-avatar-wrap">
                     <div className="acc-avatar">
                         <img src={acc} alt="avatar" />
@@ -119,7 +129,6 @@ export default function AccountPage({ onBack }) {
                     <button className="acc-avatar__change">Изменить</button>
                 </div>
 
-                {/* Поля */}
                 <Field label="Имя" value={name} onChange={setName} placeholder="Заполнить поле" />
                 <Field label="Nickname" value={nickname} onChange={setNick} placeholder="Nickname" />
                 <Field label="Email" value={email} onChange={setEmail} placeholder="Email" type="email" />
@@ -137,10 +146,11 @@ export default function AccountPage({ onBack }) {
                     <button className="acc-forgot" onClick={() => setModal(true)}>Забыли пароль?</button>
                 </div>
 
-                <button className="acc-btn acc-btn--save">Сохранить изменения</button>
+                <button className="acc-btn acc-btn--save" onClick={handleSave}>
+                    {saved ? "Сохранено ✓" : "Сохранить изменения"}
+                </button>
             </div>
 
-            {/* Модалка смены пароля */}
             {showModal && <ChangePasswordModal onClose={() => setModal(false)} />}
         </div>
     );

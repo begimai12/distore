@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header"
 import Footer from "../../components/Footer/Footer"
 
 
-function App() {
+function Ordering() {
 
     return (
         <>
@@ -15,4 +15,4 @@ function App() {
     )
 }
 
-export default App
+export default Ordering

@@ -1,31 +1,15 @@
-import { useState } from "react";
+import { useWishlist } from "../../context/WishlistContext";
+import { useCart } from "../../context/CartContext";
 import "./wishlist.css";
-import defaultImg from "../../assets/default.png";
 
 const ARROW_LEFT = "data:image/svg+xml,%3csvg%20width='40'%20height='40'%20viewBox='0%200%2040%2040'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M27.2002%208.0001L13.5469%2020.8001L27.2002%2033.6001'%20stroke='black'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e";
 
-const INITIAL_ITEMS = [
-    { id: 1, name: "ISNTREE Hyaluronic Acid Moist Cream", volume: "100мл", price: "750 сом", img: defaultImg },
-    { id: 2, name: "ISNTREE Hyaluronic Acid Moist Cream", volume: "100мл", price: "750 сом", img: defaultImg },
-    { id: 3, name: "ISNTREE Hyaluronic Acid Moist Cream", volume: "100мл", price: "750 сом", img: defaultImg },
-    { id: 4, name: "ISNTREE Hyaluronic Acid Moist Cream", volume: "100мл", price: "750 сом", img: defaultImg },
-    { id: 5, name: "ISNTREE Hyaluronic Acid Moist Cream", volume: "100мл", price: "750 сом", img: defaultImg },
-    { id: 6, name: "ISNTREE Hyaluronic Acid Moist Cream", volume: "100мл", price: "750 сом", img: defaultImg },
-    { id: 7, name: "ISNTREE Hyaluronic Acid Moist Cream", volume: "100мл", price: "750 сом", img: defaultImg },
-    { id: 8, name: "ISNTREE Hyaluronic Acid Moist Cream", volume: "100мл", price: "750 сом", img: defaultImg },
-    { id: 9, name: "ISNTREE Hyaluronic Acid Moist Cream", volume: "100мл", price: "750 сом", img: defaultImg },
-];
-
 export default function Wishlist() {
-    const [items, setItems] = useState(INITIAL_ITEMS);
-
-    const removeItem = (id) => {
-        setItems(prev => prev.filter(item => item.id !== id));
-    };
+    const { items, removeFromWishlist } = useWishlist();
+    const { addToCart } = useCart();
 
     return (
         <div className="wl-root">
-            {/* Шапка */}
             <div className="wl-header">
                 <button className="wl-back" onClick={() => window.history.back()} aria-label="Назад">
                     <img src={ARROW_LEFT} alt="назад" />
@@ -34,7 +18,6 @@ export default function Wishlist() {
                 <div className="wl-header__placeholder" />
             </div>
 
-            {/* Сетка */}
             {items.length === 0 ? (
                 <div className="wl-empty">
                     <p>Список желаний пуст</p>
@@ -50,11 +33,11 @@ export default function Wishlist() {
                                 <div className="wl-card__top">
                                     <div>
                                         <p className="wl-card__name">{item.name}</p>
-                                        <p className="wl-card__volume">{item.volume}</p>
+                                        {item.volume && <p className="wl-card__volume">{item.volume}</p>}
                                     </div>
                                     <button
                                         className="wl-card__heart"
-                                        onClick={() => removeItem(item.id)}
+                                        onClick={() => removeFromWishlist(item.id)}
                                         aria-label="Удалить из желаний"
                                     >
                                         <svg width="22" height="22" viewBox="0 0 24 24" fill="#e74c3c">
@@ -62,8 +45,15 @@ export default function Wishlist() {
                                         </svg>
                                     </button>
                                 </div>
-                                <p className="wl-card__price">{item.price}</p>
-                                <button className="wl-card__cart">В корзину</button>
+                                <p className="wl-card__price">
+                                    {typeof item.price === "number" ? item.price.toLocaleString() + " сом" : item.price}
+                                </p>
+                                <button
+                                    className="wl-card__cart"
+                                    onClick={() => addToCart({ id: item.id, name: item.name, price: item.price, img: item.img, volume: item.volume })}
+                                >
+                                    В корзину
+                                </button>
                             </div>
                         </div>
                     ))}

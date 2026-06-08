@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header"
 import Wishlist from "../../components/Wishlist/Wishlist"
 
 
-function App() {
+function Favourites() {
 
     return (
         <>
@@ -15,4 +15,4 @@ function App() {
     )
 }
 
-export default App
+export default Favourites

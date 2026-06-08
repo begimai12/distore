@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { CartProvider } from "./context/CartContext"
+import { WishlistProvider } from "./context/WishlistContext"
 import Home from "./pages/Home/Home"
 import Catalog from "./pages/Catalog/Catalog"
 import './App.css'
@@ -20,22 +21,22 @@ function App() {
   return (
     <BrowserRouter>
       <CartProvider>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/catalog" element={<Catalog />} />
-        <Route path="/productpage" element={<Productpage />} />
-        <Route path="/favourites" element={<Favourites />} />
-        <Route path="/shoppingcart" element={<Shoppingcart />} />
-        <Route path="/ordering" element={<Ordering />} />
-        <Route path="/aboutus" element={<Aboutus />} />
-        <Route path="/contacts" element={<Contacts />} />
-        <Route path="/account" element={<Account />} />
-        <Route path="/order" element={<Order />} />
-        <Route path="/address" element={<Address />} />
-        <Route path="/myaccount" element={<Myaccount />} />
-
-
-      </Routes>
+        <WishlistProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="/productpage" element={<Productpage />} />
+            <Route path="/favourites" element={<Favourites />} />
+            <Route path="/shoppingcart" element={<Shoppingcart />} />
+            <Route path="/ordering" element={<Ordering />} />
+            <Route path="/aboutus" element={<Aboutus />} />
+            <Route path="/contacts" element={<Contacts />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/order" element={<Order />} />
+            <Route path="/address" element={<Address />} />
+            <Route path="/myaccount" element={<Myaccount />} />
+          </Routes>
+        </WishlistProvider>
       </CartProvider>
     </BrowserRouter>
   )

@@ -29,15 +29,21 @@ function Field({ label, value, onChange, placeholder, required }) {
     );
 }
 
-export default function AddressPage({ onBack }) {
-    const [name, setName] = useState("");
-    const [phone, setPhone] = useState("");
-    const [email, setEmail] = useState("");
-    const [country, setCountry] = useState("Кыргызстан");
-    const [city, setCity] = useState("Бишкек");
-    const [address, setAddress] = useState("");
+const loadAddress = () => {
+    try { return JSON.parse(localStorage.getItem("distore_address")) || {}; }
+    catch { return {}; }
+};
 
-    // мобайл: аккордеон
+export default function AddressPage({ onBack }) {
+    const a = loadAddress();
+    const [name, setName] = useState(a.name || "");
+    const [phone, setPhone] = useState(a.phone || "");
+    const [email, setEmail] = useState(a.email || "");
+    const [country, setCountry] = useState(a.country || "Кыргызстан");
+    const [city, setCity] = useState(a.city || "Бишкек");
+    const [address, setAddress] = useState(a.address || "");
+    const [saved, setSaved] = useState(false);
+
     const [openSection, setOpenSection] = useState("customer");
 
     const handleReset = () => {
@@ -45,12 +51,17 @@ export default function AddressPage({ onBack }) {
         setCountry("Кыргызстан"); setCity("Бишкек"); setAddress("");
     };
 
+    const handleSave = () => {
+        localStorage.setItem("distore_address", JSON.stringify({ name, phone, email, country, city, address }));
+        setSaved(true);
+        setTimeout(() => setSaved(false), 2000);
+    };
+
     const toggle = (section) =>
         setOpenSection(prev => prev === section ? null : section);
 
     return (
         <div className="addr-root">
-            {/* Заголовок */}
             <div className="addr-header">
                 <button className="addr-header__back" onClick={onBack}>
                     <BackIcon />
@@ -61,9 +72,8 @@ export default function AddressPage({ onBack }) {
                 </div>
             </div>
 
-            {/* ── ДЕСКТОП: две колонки ── */}
+            {/* ── ДЕСКТОП ── */}
             <div className="addr-desktop">
-                {/* Левая колонка */}
                 <div className="addr-col">
                     <div className="addr-section-header">Информация о заказчике</div>
                     <Field label="Имя" value={name} onChange={setName} placeholder="Имя" required />
@@ -74,21 +84,21 @@ export default function AddressPage({ onBack }) {
                     </div>
                 </div>
 
-                {/* Правая колонка */}
                 <div className="addr-col">
                     <div className="addr-section-header">Адрес доставки</div>
                     <Field label="Страна" value={country} onChange={setCountry} placeholder="Страна" required />
                     <Field label="Город" value={city} onChange={setCity} placeholder="Город" required />
                     <Field label="Адрес" value={address} onChange={setAddress} placeholder="Номер дома и название улицы" required />
                     <div className="addr-col__actions">
-                        <button className="addr-btn addr-btn--save">Сохранить</button>
+                        <button className="addr-btn addr-btn--save" onClick={handleSave}>
+                            {saved ? "Сохранено ✓" : "Сохранить"}
+                        </button>
                     </div>
                 </div>
             </div>
 
-            {/* ── МОБАЙЛ: аккордеон ── */}
+            {/* ── МОБАЙЛ ── */}
             <div className="addr-mobile">
-                {/* Секция 1 */}
                 <div className="addr-accordion">
                     <button
                         className={`addr-accordion__header ${openSection === "customer" ? "addr-accordion__header--open" : ""}`}
@@ -108,7 +118,6 @@ export default function AddressPage({ onBack }) {
                     )}
                 </div>
 
-                {/* Секция 2 */}
                 <div className="addr-accordion">
                     <button
                         className={`addr-accordion__header ${openSection === "delivery" ? "addr-accordion__header--open" : ""}`}
@@ -128,10 +137,11 @@ export default function AddressPage({ onBack }) {
                     )}
                 </div>
 
-                {/* Кнопки */}
                 <div className="addr-mobile__actions">
                     <button className="addr-btn addr-btn--reset" onClick={handleReset}>Сбросить</button>
-                    <button className="addr-btn addr-btn--save">Сохранить</button>
+                    <button className="addr-btn addr-btn--save" onClick={handleSave}>
+                        {saved ? "Сохранено ✓" : "Сохранить"}
+                    </button>
                 </div>
             </div>
         </div>

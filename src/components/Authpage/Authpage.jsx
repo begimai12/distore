@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./authpage.css";
 import acc from "../../assets/acc.png";
 import locationIcon from "../../assets/location.svg";
 import accountIcon from "../../assets/account.svg";
-
 
 const CART_ICON = "data:image/svg+xml,%3csvg%20width='120'%20height='120'%20viewBox='0%200%2025%2025'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20clip-path='url(%23clip0_15_291)'%3e%3cpath%20d='M20%2020C18.6125%2020%2017.5%2021.1125%2017.5%2022.5C17.5%2023.163%2017.7634%2023.7989%2018.2322%2024.2678C18.7011%2024.7366%2019.337%2025%2020%2025C20.663%2025%2021.2989%2024.7366%2021.7678%2024.2678C22.2366%2023.7989%2022.5%2023.163%2022.5%2022.5C22.5%2021.837%2022.2366%2021.2011%2021.7678%2020.7322C21.2989%2020.2634%2020.663%2020%2020%2020ZM0%200V2.5H2.5L7%2011.9875L5.3%2015.05C5.1125%2015.4%205%2015.8125%205%2016.25C5%2016.913%205.26339%2017.5489%205.73223%2018.0178C6.20107%2018.4866%206.83696%2018.75%207.5%2018.75H22.5V16.25H8.025C7.94212%2016.25%207.86263%2016.2171%207.80403%2016.1585C7.74542%2016.0999%207.7125%2016.0204%207.7125%2015.9375C7.7125%2015.875%207.725%2015.825%207.75%2015.7875L8.875%2013.75H18.1875C19.125%2013.75%2019.95%2013.225%2020.375%2012.4625L24.85%204.375C24.9375%204.175%2025%203.9625%2025%203.75C25%203.41848%2024.8683%203.10054%2024.6339%202.86612C24.3995%202.6317%2024.0815%202.5%2023.75%202.5H5.2625L4.0875%200M7.5%2020C6.1125%2020%205%2021.1125%205%2022.5C5%2023.163%205.26339%2023.7989%205.73223%2024.2678C6.20107%2024.7366%206.83696%2025%207.5%2025C8.16304%2025%208.79893%2024.7366%209.26777%2024.2678C9.73661%2023.7989%2010%2023.163%2010%2022.5C10%2021.837%209.73661%2021.2011%209.26777%2020.7322C8.79893%2020.2634%208.16304%2020%207.5%2020Z'%20fill='%23CCD47C'/%3e%3c/g%3e%3cdefs%3e%3cclipPath%20id='clip0_15_291'%3e%3crect%20width='25'%20height='25'%20fill='white'/%3e%3c/clipPath%3e%3c/defs%3e%3c/svg%3e";
 
@@ -64,10 +64,20 @@ function PhoneField({ value, onChange }) {
 }
 
 function LoginForm({ onSwitch, onLogin }) {
-    const [email, setEmail] = useState("Loisbecket@gmail.com");
-    const [password, setPassword] = useState("•••••••");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [showPw, setShowPw] = useState(false);
     const [remember, setRemember] = useState(false);
+    const [error, setError] = useState("");
+
+    const handleLogin = () => {
+        if (!email.trim() || !password.trim()) {
+            setError("Введите email и пароль");
+            return;
+        }
+        setError("");
+        onLogin({ email, remember });
+    };
 
     return (
         <div className="auth-form">
@@ -78,24 +88,35 @@ function LoginForm({ onSwitch, onLogin }) {
             </p>
             <InputField label="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
             <InputField label="Пароль" showToggle showPassword={showPw} onToggle={() => setShowPw(p => !p)} value={password} onChange={e => setPassword(e.target.value)} />
+            {error && <p style={{ color: "#e74c3c", fontSize: 13, margin: "0" }}>{error}</p>}
             <div className="auth-form__row">
                 <label className="auth-form__check">
                     <input type="checkbox" checked={remember} onChange={e => setRemember(e.target.checked)} />
                     <span>Запомнить меня</span>
                 </label>
-                <button className="auth-form__link">Забыли пароль?</button>
+                <button className="auth-form__link" type="button">Забыли пароль?</button>
             </div>
-            <button className="auth-form__btn" onClick={() => onLogin()}>Войти</button>
+            <button className="auth-form__btn" onClick={handleLogin}>Войти</button>
         </div>
     );
 }
 
-function RegisterForm({ onSwitch }) {
-    const [name, setName] = useState("Lois Becket");
-    const [email, setEmail] = useState("Loisbecket@gmail.com");
-    const [phone, setPhone] = useState("(454) 726-0592");
-    const [password, setPassword] = useState("•••••••");
+function RegisterForm({ onSwitch, onRegister }) {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [password, setPassword] = useState("");
     const [showPw, setShowPw] = useState(false);
+    const [error, setError] = useState("");
+
+    const handleRegister = () => {
+        if (!email.trim() || !password.trim()) {
+            setError("Введите email и пароль");
+            return;
+        }
+        setError("");
+        onRegister({ name, nickname: name, email, phone });
+    };
 
     return (
         <div className="auth-form">
@@ -108,38 +129,38 @@ function RegisterForm({ onSwitch }) {
             <InputField label="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} />
             <PhoneField value={phone} onChange={e => setPhone(e.target.value)} />
             <InputField label="Пароль" showToggle showPassword={showPw} onToggle={() => setShowPw(p => !p)} value={password} onChange={e => setPassword(e.target.value)} />
-            <button className="auth-form__btn auth-form__btn--disabled">Зарегистрироваться</button>
+            {error && <p style={{ color: "#e74c3c", fontSize: 13, margin: "0" }}>{error}</p>}
+            <button className="auth-form__btn" onClick={handleRegister}>Зарегистрироваться</button>
         </div>
     );
 }
 
-function ProfilePage({ onLogoutRequest }) {
+function ProfilePage({ user, onLogoutRequest }) {
+    const navigate = useNavigate();
     const tiles = [
-        { icon: CART_ICON, label: "Заказы" },
-        { icon: locationIcon, label: "Адрес" },
-        { icon: accountIcon, label: "Аккаунт" },
+        { icon: CART_ICON, label: "Заказы", path: "/order" },
+        { icon: locationIcon, label: "Адрес", path: "/address" },
+        { icon: accountIcon, label: "Аккаунт", path: "/myaccount" },
     ];
 
     return (
         <div className="profile">
-            {/* Шапка */}
             <div className="profile__header">
                 <div className="profile__avatar">
-                    <img src={acc} alt="Derrimet" />
+                    <img src={acc} alt={user.nickname || "User"} />
                 </div>
                 <div className="profile__info">
-                    <span className="profile__name">Derrimet</span>
-                    <span className="profile__email">example@gmail.com</span>
+                    <span className="profile__name">{user.nickname || user.name || "Пользователь"}</span>
+                    <span className="profile__email">{user.email || ""}</span>
                 </div>
                 <button className="profile__logout-btn" onClick={onLogoutRequest} title="Выйти">
                     <img src={LOGOUT_SVG} alt="выйти" />
                 </button>
             </div>
 
-            {/* Плитки */}
             <div className="profile__tiles">
-                {tiles.map(({ icon, label }) => (
-                    <div key={label} className="profile__tile">
+                {tiles.map(({ icon, label, path }) => (
+                    <div key={label} className="profile__tile" onClick={() => navigate(path)} style={{ cursor: "pointer" }}>
                         <div className="profile__tile-icon">
                             <img src={icon} alt={label} className="profile__tile-img" />
                         </div>
@@ -147,8 +168,7 @@ function ProfilePage({ onLogoutRequest }) {
                     </div>
                 ))}
 
-                {/* Выйти — только мобайл */}
-                <div className="profile__tile profile__tile--logout-mobile" onClick={onLogoutRequest}>
+                <div className="profile__tile profile__tile--logout-mobile" onClick={onLogoutRequest} style={{ cursor: "pointer" }}>
                     <div className="profile__tile-icon">
                         <img src={LOGOUT_SVG} alt="выйти" className="profile__tile-img" />
                     </div>
@@ -173,12 +193,39 @@ function LogoutModal({ onCancel, onConfirm }) {
     );
 }
 
+const loadUser = () => {
+    try { return JSON.parse(localStorage.getItem("distore_user")) || null; }
+    catch { return null; }
+};
+
 export default function AuthPage() {
-    const [view, setView] = useState("login");
+    const savedUser = loadUser();
+    const [view, setView] = useState(savedUser?.loggedIn ? "profile" : "login");
+    const [user, setUser] = useState(savedUser || {});
     const [showLogout, setShowLogout] = useState(false);
 
-    const handleLogin = () => setView("profile");
-    const handleLogout = () => { setShowLogout(false); setView("login"); };
+    const handleLogin = ({ email }) => {
+        const existing = loadUser() || {};
+        const u = { ...existing, email, nickname: existing.nickname || email.split("@")[0], loggedIn: true };
+        localStorage.setItem("distore_user", JSON.stringify(u));
+        setUser(u);
+        setView("profile");
+    };
+
+    const handleRegister = (data) => {
+        const u = { ...data, loggedIn: true };
+        localStorage.setItem("distore_user", JSON.stringify(u));
+        setUser(u);
+        setView("profile");
+    };
+
+    const handleLogout = () => {
+        const u = { ...user, loggedIn: false };
+        localStorage.setItem("distore_user", JSON.stringify(u));
+        setShowLogout(false);
+        setUser({});
+        setView("login");
+    };
 
     return (
         <div className="auth-page">
@@ -189,8 +236,8 @@ export default function AuthPage() {
             )}
             <div className={`auth-page__content ${view === "profile" ? "auth-page__content--full" : ""}`}>
                 {view === "login" && <LoginForm onSwitch={setView} onLogin={handleLogin} />}
-                {view === "register" && <RegisterForm onSwitch={setView} />}
-                {view === "profile" && <ProfilePage onLogoutRequest={() => setShowLogout(true)} />}
+                {view === "register" && <RegisterForm onSwitch={setView} onRegister={handleRegister} />}
+                {view === "profile" && <ProfilePage user={user} onLogoutRequest={() => setShowLogout(true)} />}
             </div>
             {showLogout && <LogoutModal onCancel={() => setShowLogout(false)} onConfirm={handleLogout} />}
         </div>

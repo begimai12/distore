@@ -4,7 +4,7 @@ import Location from "../../components/Location/Location"
 import Tabbar from "../../components/Tabbar/Tabbar"
 
 
-function App() {
+function Contacts() {
 
     return (
         <>
@@ -17,4 +17,4 @@ function App() {
     )
 }
 
-export default App
+export default Contacts

@@ -6,7 +6,7 @@ import InstagramBlock from "../../components/Instagramblock/Instagramblock"
 import TabBar from "../../components/Tabbar/Tabbar"
 import We from "../../components/We/We"
 
-function App() {
+function Aboutus() {
 
     return (
         <>
@@ -22,4 +22,4 @@ function App() {
     )
 }
 
-export default App
+export default Aboutus

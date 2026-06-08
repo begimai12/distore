@@ -3,7 +3,7 @@ import Footer from "../../components/Footer/Footer"
 import Header from "../../components/Header/Header"
 
 
-function App() {
+function Shoppingcart() {
 
     return (
         <>
@@ -15,4 +15,4 @@ function App() {
     )
 }
 
-export default App
+export default Shoppingcart

@@ -5,7 +5,7 @@ import CatalogImgs from "../../components/Catalogimgs/Catalogimgs"
 import Header from "../../components/Header/Header"
 import Footer from "../../components/Footer/Footer"
 
-function App() {
+function Catalog() {
     const [searchParams] = useSearchParams();
     const categoryParam = searchParams.get("category");
 
@@ -26,4 +26,4 @@ function App() {
     )
 }
 
-export default App
+export default Catalog

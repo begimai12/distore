@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./ordertracking.css";
 
-// Моковые данные заказов
 const ORDERS = [
     { id: 1, name: "ISNTREE Hyaluronic Acid Moist Cream", volume: "100мл", qty: "2шт", price: "750 сом", paid: false },
     { id: 2, name: "ISNTREE Hyaluronic Acid Moist Cream", volume: "100мл", qty: "2шт", price: "750 сом", paid: false },
@@ -9,7 +9,6 @@ const ORDERS = [
     { id: 4, name: "ISNTREE Hyaluronic Acid Moist Cream", volume: "100мл", qty: "2шт", price: "750 сом", paid: true },
 ];
 
-// Иконки этапов (SVG inline)
 const BoxIcon = () => (
     <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
         <path d="M10 20L30 10L50 20V40L30 50L10 40V20Z" fill="#CCD47C" />
@@ -60,8 +59,8 @@ const STAGES = [
     },
 ];
 
-// ── Вкладка «Заказ» ──
-function OrderList() {
+function OrderList({ onStatusClick }) {
+    const navigate = useNavigate();
     return (
         <div className="ot-list">
             {ORDERS.map(order => (
@@ -78,7 +77,10 @@ function OrderList() {
                             <span className="ot-item__price">{order.price}</span>
                         </div>
                     </div>
-                    <button className={`ot-item__btn ${order.paid ? "ot-item__btn--status" : "ot-item__btn--pay"}`}>
+                    <button
+                        className={`ot-item__btn ${order.paid ? "ot-item__btn--status" : "ot-item__btn--pay"}`}
+                        onClick={() => order.paid ? onStatusClick() : navigate("/ordering")}
+                    >
                         {order.paid ? "Статус заказа" : "Оплатить"}
                     </button>
                 </div>
@@ -87,11 +89,9 @@ function OrderList() {
     );
 }
 
-// ── Вкладка «Статус заказа» ──
 function OrderStatus() {
     return (
         <div className="ot-status">
-            {/* Десктоп: горизонтальный прогресс */}
             <div className="ot-status__desktop">
                 <div className="ot-status__icons">
                     {STAGES.map((s, i) => (
@@ -121,7 +121,6 @@ function OrderStatus() {
                 </div>
             </div>
 
-            {/* Мобайл: вертикальный прогресс */}
             <div className="ot-status__mobile">
                 <div className="ot-status__vline-wrap">
                     {STAGES.map((s, i) => (
@@ -146,13 +145,11 @@ function OrderStatus() {
     );
 }
 
-// ── Root ──
 export default function OrderTracking({ onBack }) {
     const [tab, setTab] = useState("order");
 
     return (
         <div className="ot-root">
-            {/* Заголовок */}
             <div className="ot-header">
                 <button className="ot-header__back" onClick={onBack}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -162,7 +159,6 @@ export default function OrderTracking({ onBack }) {
                 <h2 className="ot-header__title">Отслеживание заказа</h2>
             </div>
 
-            {/* Табы */}
             <div className="ot-tabs">
                 <button
                     className={`ot-tab ${tab === "order" ? "ot-tab--active" : ""}`}
@@ -178,9 +174,8 @@ export default function OrderTracking({ onBack }) {
                 </button>
             </div>
 
-            {/* Контент */}
             <div className="ot-content">
-                {tab === "order" && <OrderList />}
+                {tab === "order" && <OrderList onStatusClick={() => setTab("status")} />}
                 {tab === "status" && <OrderStatus />}
             </div>
         </div>
