@@ -1,22 +1,35 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./hero.css";
+import imgClio from "../../assets/brands/clio.jpg";
+import imgAbh from "../../assets/brands/abh.jpg";
+import imgJsDerma from "../../assets/brands/jsderma.jpg";
+import imgCp1 from "../../assets/brands/cp1.jpg";
+import imgIlia from "../../assets/brands/ilia.jpg";
+import imgSolDeJaneiro from "../../assets/brands/soldejaneiro.jpg";
+import imgRareBeauty from "../../assets/brands/rarebeauty.jpg";
+import imgHermes from "../../assets/brands/hermes.jpg";
+import imgHeimish from "../../assets/brands/heimish.jpg";
+import imgLnPro from "../../assets/brands/lnpro.jpg";
+import imgOneSize from "../../assets/brands/onesize.jpg";
+import imgDrAlthea from "../../assets/brands/drAlthea.jpg";
 
 const CIRCLE_LOGO = "https://distore.one/assets/circle-logo-dh9adKg5.svg";
 const ARROW_LEFT = "data:image/svg+xml,%3csvg%20width='40'%20height='40'%20viewBox='0%200%2040%2040'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M27.2002%208.0001L13.5469%2020.8001L27.2002%2033.6001'%20stroke='black'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e";
 
 const BRANDS = [
-    { name: "CLIO", img: "http://distore.one/BrandLogo1C/CLIO.jpg" },
-    { name: "ANASTASIA BEVERLY HILLS", img: "http://distore.one/BrandLogo1C/ANASTASIABEVERLYHILLS.jpg" },
-    { name: "J'S DERMA", img: "http://distore.one/BrandLogo1C/J'SDERMA.jpg" },
-    { name: "CP-1", img: "http://distore.one/BrandLogo1C/CP-1.jpg" },
-    { name: "ILIA", img: "http://distore.one/BrandLogo1C/ILIA.jpg" },
-    { name: "SOL DE JANEIRO", img: "http://distore.one/BrandLogo1C/SOLDEJANEIRO.jpg" },
-    { name: "RARE BEAUTY", img: "http://distore.one/BrandLogo1C/RAREBEAUTY.jpg" },
-    { name: "HERMES", img: "http://distore.one/BrandLogo1C/HERMES.jpg" },
-    { name: "HEIMISH", img: "http://distore.one/BrandLogo1C/HEIMISH.jpg" },
-    { name: "LN PRO", img: "http://distore.one/BrandLogo1C/LNPRO.jpg" },
-    { name: "ONE SIZE", img: "http://distore.one/BrandLogo1C/ONESIZE.jpg" },
-    { name: "DR. ALTHEA", img: "http://distore.one/BrandLogo1C/DR.ALTHEA.jpg" },
+    { name: "CLIO", img: imgClio },
+    { name: "ANASTASIA BEVERLY HILLS", img: imgAbh },
+    { name: "J'S DERMA", img: imgJsDerma },
+    { name: "CP-1", img: imgCp1 },
+    { name: "ILIA", img: imgIlia },
+    { name: "SOL DE JANEIRO", img: imgSolDeJaneiro },
+    { name: "RARE BEAUTY", img: imgRareBeauty },
+    { name: "HERMES", img: imgHermes },
+    { name: "HEIMISH", img: imgHeimish },
+    { name: "LN PRO", img: imgLnPro },
+    { name: "ONE SIZE", img: imgOneSize },
+    { name: "DR. ALTHEA", img: imgDrAlthea },
 ];
 
 const ROW_1 = BRANDS.slice(0, 6);
@@ -75,12 +88,14 @@ function useInfiniteCarousel(items, startOffset = 0) {
 }
 
 export default function Hero() {
+    const navigate = useNavigate();
     const row1 = useInfiniteCarousel(ROW_1, 0);
     const row2 = useInfiniteCarousel(ROW_2, ROW_2.length - 3); // начинаем с конца
     const rowMobile = useInfiniteCarousel(ALL_BRANDS, 0); // мобайл — все бренды
 
     const handleNext = () => { row1.next(); row2.prev(); rowMobile.next(); };
     const handlePrev = () => { row1.prev(); row2.next(); rowMobile.prev(); };
+    const goToBrand = (brandName) => navigate('/catalog?brand=' + encodeURIComponent(brandName));
 
     return (
         <section className="hero">
@@ -122,6 +137,8 @@ export default function Hero() {
                             <div
                                 key={`r1-${i}`}
                                 className={`hero-brand-card${i % 2 !== 0 ? " hero-brand-card--low" : ""}`}
+                                onClick={() => goToBrand(brand.name)}
+                                style={{ cursor: "pointer" }}
                             >
                                 <img src={brand.img} alt={brand.name} className="hero-brand-card__img" />
                             </div>
@@ -139,7 +156,7 @@ export default function Hero() {
                         }}
                     >
                         {row2.repeated.map((brand, i) => (
-                            <div key={`r2-${i}`} className="hero-brand-card">
+                            <div key={`r2-${i}`} className="hero-brand-card" onClick={() => goToBrand(brand.name)} style={{ cursor: "pointer" }}>
                                 <img src={brand.img} alt={brand.name} className="hero-brand-card__img" />
                             </div>
                         ))}
@@ -161,6 +178,8 @@ export default function Hero() {
                             <div
                                 key={`rm-${i}`}
                                 className={`hero-brand-card${i % 2 !== 0 ? " hero-brand-card--low" : ""}`}
+                                onClick={() => goToBrand(brand.name)}
+                                style={{ cursor: "pointer" }}
                             >
                                 <img src={brand.img} alt={brand.name} className="hero-brand-card__img" />
                             </div>

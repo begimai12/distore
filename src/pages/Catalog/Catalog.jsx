@@ -8,9 +8,11 @@ import Footer from "../../components/Footer/Footer"
 function Catalog() {
     const [searchParams] = useSearchParams();
     const categoryParam = searchParams.get("category");
+    const brandParam = searchParams.get("brand");
 
     const [filters, setFilters] = useState({
         categories: categoryParam ? [categoryParam] : [],
+        brand: brandParam || "",
         priceFrom: 0,
         priceTo: 10000,
         sort: "Исходная сортировка",
